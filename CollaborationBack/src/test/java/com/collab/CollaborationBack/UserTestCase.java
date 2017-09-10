@@ -62,13 +62,14 @@ public class UserTestCase {
 		
 	}
 	
-	 @Ignore
+	 // @Ignore
 	  @Test
 		public void deleteuser()
 		{
-			 assertTrue("blogcomment deleted",userDao.deleteUser(123));
+			 assertTrue("problem iin user deletion",userDao.deleteUser(123));
 		}
-	  
+	
+	  @Ignore
 	  @Test
 		public void getallforumtest()
 		{
