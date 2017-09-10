@@ -2,6 +2,8 @@ package com.collab.CollaborationBack;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -9,6 +11,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 
 import com.collab.CollaborationBack.Dao.ForumDao;
+import com.collab.CollaborationBack.model.BlogComment;
 import com.collab.CollaborationBack.model.Forum;
 
 public class ForumTestCase {
@@ -26,7 +29,7 @@ public class ForumTestCase {
 		forumDao=(ForumDao)annotationConfigApplicationContext.getBean("forumDao");
 		
 	}
-	@Ignore
+	//@Ignore
 	@Test
 	public void forumtest() {
 		Forum forum=new Forum();
@@ -63,5 +66,12 @@ public class ForumTestCase {
 			 assertTrue("blogcomment deleted",forumDao.deleteForum(4001));
 		}
 		
-	
+	   @Ignore	
+		@Test
+		public void getallforumtest()
+		{
+			 List<Forum> listforum=forumDao.getAllForums();
+			assertTrue("No forums",listforum.size()>0);
+		}
+	  
 }
