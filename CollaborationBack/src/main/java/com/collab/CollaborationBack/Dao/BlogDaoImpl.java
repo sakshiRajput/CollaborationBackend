@@ -61,7 +61,7 @@ public class BlogDaoImpl implements BlogDao{
 	}
 	@Transactional
 	public boolean deleteBlog(int blogId) {
-		// TODO Auto-generated method stub
+		
 		try{
 		Session session= sessionFactory.getCurrentSession();
 		Blog blog=(Blog)session.load(Blog.class, blogId);
@@ -76,7 +76,7 @@ public class BlogDaoImpl implements BlogDao{
 	}
 	@Transactional
 	public Blog getBlog(int blogId) {
-		// TODO Auto-generated method stub
+	
 		try{
 		Session session=sessionFactory.getCurrentSession();
 		Query query=session.createQuery("from Blog where blogid=?");
