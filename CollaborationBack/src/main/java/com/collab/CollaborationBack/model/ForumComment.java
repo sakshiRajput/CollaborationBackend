@@ -2,8 +2,12 @@ package com.collab.CollaborationBack.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
@@ -15,10 +19,10 @@ public class ForumComment {
 	
 	@Id
 	private Integer forumcommentId;
-	private Integer forumId;
+//	private Integer forumId;
 	private String forumComment;
 	private Date commentDate;
-	private Integer userId;
+	//private Integer userId;
     private String userName;
 	public Integer getForumcommentId() {
 		return forumcommentId;
@@ -26,12 +30,7 @@ public class ForumComment {
 	public void setForumcommentId(Integer forumcommentId) {
 		this.forumcommentId = forumcommentId;
 	}
-	public Integer getForumId() {
-		return forumId;
-	}
-	public void setForumId(Integer forumId) {
-		this.forumId = forumId;
-	}
+
 	public String getForumComment() {
 		return forumComment;
 	}
@@ -57,6 +56,34 @@ public class ForumComment {
 		this.userName = userName;
 	}
 	
+
+	@ManyToOne
+	@JoinColumn(name = "userId", nullable = false, updatable = false, insertable = false)
+	private User user;
 	
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+	private Integer userId;
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name = "forumId",nullable = false, updatable = false, insertable = false)
+	private Forum forum;
+	private Integer forumId;
+	public Integer getForumId() {
+		return forumId;
+	}
+	public void setForumId(Integer forumId) {
+		this.forumId = forumId;
+	}
+	public Forum getForum() {
+		return forum;
+	}
+	public void setForum(Forum forum) {
+		this.forum = forum;
+	}
 
 }

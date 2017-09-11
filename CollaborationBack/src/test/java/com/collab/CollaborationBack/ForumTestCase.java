@@ -11,7 +11,6 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 
 import com.collab.CollaborationBack.Dao.ForumDao;
-import com.collab.CollaborationBack.model.BlogComment;
 import com.collab.CollaborationBack.model.Forum;
 
 public class ForumTestCase {

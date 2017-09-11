@@ -4,9 +4,13 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
+
+
 
 @Entity
 @Component
@@ -17,13 +21,8 @@ public class Blog {
 	private String blogName;
 	private String blogContent;
 	private String status;
-	private String userId;
-	public String getUserId() {
-		return userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
+	//private String userId;
+
 	private Integer likes;
 	private Date createDate;
 	public Integer getBlogId() {
@@ -65,6 +64,23 @@ public class Blog {
 		this.createDate = createDate;
 	}
 	
+	@ManyToOne
+	@JoinColumn(name = "userId", nullable = false, updatable = false, insertable = false)
+	private User user;
+	
+	private Integer userId;
+	public Integer getUserId() {
+		return userId;
+	}
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 	
 
 }

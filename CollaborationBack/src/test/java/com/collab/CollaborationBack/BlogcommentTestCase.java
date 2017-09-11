@@ -27,7 +27,7 @@ public class BlogcommentTestCase {
 		blogcommentDao=(BlogcommentDao)annotationConfigApplicationContext.getBean("blogcommentDao");
 		
 	}
-    @Ignore
+   // @Ignore
 	@Test
 	public void createblogcommenttest() {
 	BlogComment blogcomment=new BlogComment();

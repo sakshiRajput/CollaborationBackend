@@ -38,7 +38,7 @@ public class ForumcommentTestCase {
 		 
 		 assertTrue("problem in creating forumcomment",forumcommentDao.createforumcomment(forumcomment));
 	}
-	
+	@Ignore
 	@Test
 	public void editforumcomment()
 	{
@@ -52,7 +52,7 @@ public class ForumcommentTestCase {
 		 
 		 assertTrue("problem in editing forumcomment",forumcommentDao.editforumcomment(forumcomment));
 	}
-	
+	@Ignore
 	@Test
 	public void deletetforumcomment()
 	{

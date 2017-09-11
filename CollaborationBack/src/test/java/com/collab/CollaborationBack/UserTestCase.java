@@ -11,7 +11,6 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 
 import com.collab.CollaborationBack.Dao.UserDao;
-import com.collab.CollaborationBack.model.Forum;
 import com.collab.CollaborationBack.model.User;
 
 public class UserTestCase {
@@ -27,7 +26,7 @@ public class UserTestCase {
 		userDao=(UserDao)annotationConfigApplicationContext.getBean("userDao");
 		
 	}
-	@Ignore
+	//@Ignore
 	@Test
 	public void addusertest() {
 	
@@ -71,10 +70,10 @@ public class UserTestCase {
 	
 	  @Ignore
 	  @Test
-		public void getallforumtest()
+		public void getallusertest()
 		{
 			 List<User> listuser=userDao.getUser();
-			 assertTrue("No forums",listuser.size()>0);
+			 assertTrue("No users",listuser.size()>0);
 		}
 	  
 
