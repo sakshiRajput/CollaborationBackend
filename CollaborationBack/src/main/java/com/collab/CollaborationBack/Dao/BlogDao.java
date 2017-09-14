@@ -9,8 +9,8 @@ public interface BlogDao {
 	
 	public boolean createBlog(Blog blog);
 	public boolean editBlog(Blog blog);
-	public boolean deleteBlog(int blogId);
-	public Blog getBlog(int blogId);
+	public boolean deleteBlog(Integer blogId);
+	public Blog getBlog(Integer blogId);
 	public List<Blog> getAllBlogs();
 	public boolean approveBlog(Blog blog);
 }

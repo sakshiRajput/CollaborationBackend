@@ -21,8 +21,13 @@ public class Blog {
 	private String blogName;
 	private String blogContent;
 	private String status;
-	//private String userId;
-
+	private Integer userId;
+    public Integer getUserId() {
+		return userId;
+	}
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
 	private Integer likes;
 	private Date createDate;
 	public Integer getBlogId() {
@@ -64,23 +69,7 @@ public class Blog {
 		this.createDate = createDate;
 	}
 	
-	@ManyToOne
-	@JoinColumn(name = "userId", nullable = false, updatable = false, insertable = false)
-	private User user;
 	
-	private Integer userId;
-	public Integer getUserId() {
-		return userId;
-	}
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
-	public User getUser() {
-		return user;
-	}
-	public void setUser(User user) {
-		this.user = user;
-	}
 	
-
+	
 }

@@ -18,7 +18,7 @@ public class Forum {
 	private Integer forumId;
 	private String forumName;
 	private String forumContent;
-//	private Integer userId;
+	private Integer userId;
 	private Date createDate;
 	private String status;
 	public Integer getForumId() {
@@ -52,24 +52,13 @@ public class Forum {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
-	@ManyToOne
-	@JoinColumn(name = "userId", nullable = false, updatable = false, insertable = false)
-	private User user;
-	
-	private Integer userId;
 	public Integer getUserId() {
 		return userId;
 	}
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
-	public User getUser() {
-		return user;
-	}
-	public void setUser(User user) {
-		this.user = user;
-	}
+	
 	
 
 }

@@ -28,7 +28,7 @@ public class BlogDaoImpl implements BlogDao{
 	}
 	
 
-//	@Override
+
 	@Transactional
 	public boolean createBlog(Blog blog) {
 		try 
@@ -49,7 +49,6 @@ public class BlogDaoImpl implements BlogDao{
 		try{
 		sessionFactory.getCurrentSession().update(blog);
 		System.out.println("table is updated");
-		System.out.println("id:-");
 		return true;
 		}
 		catch(Exception e)
@@ -60,7 +59,7 @@ public class BlogDaoImpl implements BlogDao{
 		
 	}
 	@Transactional
-	public boolean deleteBlog(int blogId) {
+	public boolean deleteBlog(Integer blogId) {
 		
 		try{
 		Session session= sessionFactory.getCurrentSession();
@@ -75,7 +74,7 @@ public class BlogDaoImpl implements BlogDao{
 		}
 	}
 	@Transactional
-	public Blog getBlog(int blogId) {
+	public Blog getBlog(Integer blogId) {
 	
 		try{
 		Session session=sessionFactory.getCurrentSession();
@@ -93,7 +92,7 @@ public class BlogDaoImpl implements BlogDao{
 	@Transactional
 	public List<Blog> getAllBlogs() {
 		Session session=sessionFactory.openSession();
-		Query query=session.createQuery("from Blog where status='A'");
+		Query query=session.createQuery("from Blog ");
 		List<Blog> listblog=query.list();
 		return listblog;
 	}

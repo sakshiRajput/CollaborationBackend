@@ -19,16 +19,31 @@ import org.springframework.stereotype.Component;
 public class BlogComment {
 	@Id
 	private Integer blogcommentId;
-//	private Integer blogId;
+	private Integer blogId;
 	private String blogComment;
+	private Date commentDate;
+	private Integer userId;
+	private String userName;
+	public Integer getBlogId() {
+		return blogId;
+	}
+	public void setBlogId(Integer blogId) {
+		this.blogId = blogId;
+	}
+	public Integer getUserId() {
+		return userId;
+	}
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+	
 	public String getBlogComment() {
 		return blogComment;
 	}
 	public void setBlogComment(String blogComment) {
 		this.blogComment = blogComment;
 	}
-	private Date commentDate;
-//	private Integer userId;
+	
 	
 	public Integer getBlogcommentId() {
 		return blogcommentId;
@@ -43,40 +58,14 @@ public class BlogComment {
 	public void setCommentDate(Date commentDate) {
 		this.commentDate = commentDate;
 	}
-	public Integer getUserId() {
-		return userId;
-	}
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
+	
 	public String getUserName() {
 		return userName;
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	private String userName;
 	
-	@ManyToOne
-	@JoinColumn(name = "userId", nullable = false, updatable = false, insertable = false)
-	private User user;
 	
-	public User getUser() {
-		return user;
-	}
-	public void setUser(User user) {
-		this.user = user;
-	}
-	private Integer userId;
-
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name = "blogId",nullable = false, updatable = false, insertable = false)
-	private Blog blog;
-	private Integer blogId;
-	public Integer getBlogId() {
-		return blogId;
-	}
-	public void setBlogId(Integer blogId) {
-		this.blogId = blogId;
-	}
+	
 }

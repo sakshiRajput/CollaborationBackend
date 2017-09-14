@@ -16,6 +16,7 @@ public class Friend {
 	@Id
 	private Integer friendId;
 	private String status;
+	private Integer userId;
 	public Integer getFriendId() {
 		return friendId;
 	}
@@ -28,11 +29,6 @@ public class Friend {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-//	@ManyToOne
-//	@JoinColumn(name = "userId", updatable = false, insertable = false)
-//	private User user;
-	
-	private Integer userId;
 	public Integer getUserId() {
 		return userId;
 	}

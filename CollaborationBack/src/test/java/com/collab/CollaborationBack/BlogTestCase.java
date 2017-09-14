@@ -70,7 +70,7 @@ public class BlogTestCase {
 		assertTrue("No approved blogs",listblog.size()>0);
 	}
 	
-    @Ignore
+   // @Ignore
 	@Test
 	public void editblog()
 	{

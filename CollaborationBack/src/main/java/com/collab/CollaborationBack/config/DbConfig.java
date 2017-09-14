@@ -31,8 +31,8 @@ public class DbConfig {
 		DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
 		driverManagerDataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
 		driverManagerDataSource.setUrl("jdbc:oracle:thin:@//localhost:1522/XE ");
-		driverManagerDataSource.setUsername("hr");
-		driverManagerDataSource.setPassword("hr");
+		driverManagerDataSource.setUsername("collab");
+		driverManagerDataSource.setPassword("collab");
 		return driverManagerDataSource;
 		
 	}
