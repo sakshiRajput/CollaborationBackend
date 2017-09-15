@@ -10,6 +10,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.collab.CollaborationBack.model.Blog;
 import com.collab.CollaborationBack.model.Forum;
 
 @Repository("forumDao")
@@ -94,6 +95,21 @@ public class ForumDaoImpl implements ForumDao{
 			System.out.println("Exception is "+e);
 			return null;
 		}
+	}
+	
+	@Transactional
+	public boolean approveforum(Forum forum) {
+		try{
+			forum.setStatus("A");
+		sessionFactory.getCurrentSession().saveOrUpdate(forum);
+		return true ;
+		}
+		catch(Exception e)
+		{
+			System.out.println("Exception is "+e);
+			return false;
+		}
+		
 	}
 
 }

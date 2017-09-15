@@ -47,7 +47,8 @@ public class BlogDaoImpl implements BlogDao{
 	public boolean editBlog(Blog blog) {
 		
 		try{
-		sessionFactory.getCurrentSession().update(blog);
+		Session session = sessionFactory.getCurrentSession();
+		session.update(blog);
 		System.out.println("table is updated");
 		return true;
 		}

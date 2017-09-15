@@ -27,7 +27,7 @@ public class BlogcommentTestCase {
 		blogcommentDao=(BlogcommentDao)annotationConfigApplicationContext.getBean("blogcommentDao");
 		
 	}
-   // @Ignore
+    @Ignore
 	@Test
 	public void createblogcommenttest() {
 	BlogComment blogcomment=new BlogComment();
@@ -43,16 +43,15 @@ public class BlogcommentTestCase {
 		
 	}
 	
-    @Ignore
+   // @Ignore
 	@Test
 	public void editblogcomment()
 	{
-		BlogComment blogcomment=new BlogComment();
-		blogcomment.setBlogcommentId(123);
-		blogcomment.setBlogId(111);
+		BlogComment blogcomment=blogcommentDao.getBlogcomment(512);
+		blogcomment.setBlogId(412);
 		blogcomment.setBlogComment("this is my second comment");
 		blogcomment.setCommentDate(new java.util.Date());
-		blogcomment.setUserId(222);
+		blogcomment.setUserId(232);
 		blogcomment.setUserName("diksha");
 		
 		assertTrue("blogcomment edited",blogcommentDao.editBlogcomment(blogcomment));

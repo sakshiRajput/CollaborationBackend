@@ -36,7 +36,7 @@ public class ForumTestCase {
 		forum.setForumContent("this is my first forum");
 		forum.setForumId(4001);
 		forum.setForumName("firstforum");
-		forum.setStatus("Na");
+		forum.setStatus("NA");
 		forum.setUserId(123);
 		forumDao.createForum(forum);
 		

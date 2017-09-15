@@ -74,7 +74,7 @@ public class BlogTestCase {
 	@Test
 	public void editblog()
 	{
-		 Blog blog=new Blog();
+		 Blog blog=blogDao.getBlog(111);
 		
 		   blog.setBlogId(111);
 		   blog.setBlogName("secondblog");
