@@ -45,7 +45,7 @@ public class BlogController {
 		{ return new ResponseEntity <String> ("problem in creating",HttpStatus.NOT_ACCEPTABLE);}
 	
 	}
-	@GetMapping(value="/approveblog/{blogId}")
+	@PutMapping(value="/approveblog/{blogId}")
 	public ResponseEntity <String> approveblog(@PathVariable("blogId") int blogId)
 	{   Blog blog=blogDao.getBlog(blogId);
 		if(blogDao.approveBlog(blog))
@@ -69,14 +69,14 @@ public class BlogController {
 		
 
 	}
-	@PutMapping(value="/editBlog/{blogID}")
-	public ResponseEntity<String> editBlog (@PathVariable("blogID")Integer blogId,@RequestBody Blog blog)
+	@PutMapping(value="/editBlog/{blogId}")
+	public ResponseEntity<String> editBlog (@PathVariable("blogId")Integer blogId,@RequestBody Blog blog)
 	{
-	
-		blog.setCreateDate(new java.util.Date());
-		blog.setStatus("NA");
-		blog.setLikes(0);
-		 if(blogDao.editBlog(blog))
+		Blog editedblog=blogDao.getBlog(blogId);
+		editedblog.setBlogName(blog.getBlogName());
+		editedblog.setBlogContent(blog.getBlogContent());
+		editedblog.setCreateDate(new java.util.Date()); 
+		if(blogDao.editBlog(editedblog))
 		 {return new ResponseEntity <String> ("blog edited",HttpStatus.OK);}
 		 else
 		 {return new ResponseEntity <String> ("problem in editing",HttpStatus.NOT_ACCEPTABLE); }
