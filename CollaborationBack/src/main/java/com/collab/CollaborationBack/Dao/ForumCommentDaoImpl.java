@@ -37,7 +37,8 @@ public class ForumCommentDaoImpl implements ForumCommentDao {
 	@Transactional
 	public boolean editforumcomment(ForumComment forumcomment) {
 		try{
-			sessionFactory.getCurrentSession().update(forumcomment);
+			Session session =sessionFactory.getCurrentSession();
+            session.update(forumcomment);
 			System.out.println("forumcomment is updated");
 			return true;
 			}
@@ -65,8 +66,8 @@ public class ForumCommentDaoImpl implements ForumCommentDao {
 	public ForumComment getforumcomment(int forumcommentId) {
 		try{
 			Session session=sessionFactory.getCurrentSession();
-			Query query=session.createQuery("from Forumcomment where forumcommentId=?");
-			query.setParameter(0, forumcommentId);
+			@SuppressWarnings("rawtypes")
+			Query query=session.createQuery("from ForumComment where forumcommentId="+forumcommentId);
 			ForumComment forumcommentlist=(ForumComment)query.getSingleResult();
 			return forumcommentlist;
 			}

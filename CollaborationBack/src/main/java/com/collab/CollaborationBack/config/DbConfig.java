@@ -5,7 +5,6 @@ import java.util.Properties;
 import javax.sql.DataSource;
 
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +18,7 @@ import com.collab.CollaborationBack.model.BlogComment;
 import com.collab.CollaborationBack.model.Forum;
 import com.collab.CollaborationBack.model.ForumComment;
 import com.collab.CollaborationBack.model.Friend;
+import com.collab.CollaborationBack.model.Job;
 import com.collab.CollaborationBack.model.User;
 
 @Configuration
@@ -47,6 +47,7 @@ public class DbConfig {
 		localSessionFactoryBuilder.addAnnotatedClass(ForumComment.class);
 		localSessionFactoryBuilder.addAnnotatedClass(User.class);
 		localSessionFactoryBuilder.addAnnotatedClass(Friend.class);
+		localSessionFactoryBuilder.addAnnotatedClass(Job.class);
 		return localSessionFactoryBuilder.buildSessionFactory();
 	}
 

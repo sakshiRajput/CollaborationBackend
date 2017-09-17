@@ -38,15 +38,16 @@ public class ForumcommentTestCase {
 		 
 		 assertTrue("problem in creating forumcomment",forumcommentDao.createforumcomment(forumcomment));
 	}
-	@Ignore
+	//@Ignore
 	@Test
 	public void editforumcomment()
 	{
-		 ForumComment forumcomment=new ForumComment(); 
-		 forumcomment.setCommentDate(new java.util.Date());
+		 ForumComment forumcomment= new ForumComment() ;
+		 
+		 forumcomment.setForumcommentId(212);
+		 forumcomment.setForumId(212);
 		 forumcomment.setForumComment("new forumComment");
-		 forumcomment.setForumcommentId(122);
-		 forumcomment.setForumId(111);
+		 forumcomment.setCommentDate(new java.util.Date());
 		 forumcomment.setUserId(123);
 		 forumcomment.setUserName("sak");
 		 
