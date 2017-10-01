@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+<title>login</title>
+</head>
+<body>
+
+<span style="color:red">{{error}}</span>
+<form> 
+<div>
+	<div class="row input-container" >
+         	<div class="col-xs-12">
+				<div class="styled-input wide">
+					<input type="text" ng-model="user.userName" required />
+					<label>UserName </label>
+				</div>
+			</div>
+			
+			<div class="col-xs-12">
+				<div class="styled-input wide">
+					<input type="password" ng-model="user.password" required />
+					<label>Password  </label>
+				</div>
+			</div>
+			<div class="col-xs-12">
+				
+				<input type="submit" value="Login" ng-click="login()" class="form-control">
+			</div>
+	</div>
+	</div>
+</form>
+
+
+</body>
+</html>
