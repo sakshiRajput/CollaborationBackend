@@ -12,14 +12,26 @@ import org.springframework.stereotype.Component;
 public class User {
 	
 	@Id
-	private Integer userId;
+	private String userName;
 	private String firstName;
 	private String lastName;
 	private String password;
 	private String emailId;
 	private String role;
 	private String status;
-	private String isOnline;
+	private boolean isOnline;
+	public boolean isOnline() {
+		return isOnline;
+	}
+	public void setOnline(boolean isOnline) {
+		this.isOnline = isOnline;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 	public String getFirstName() {
 		return firstName;
 	}
@@ -32,13 +44,6 @@ public class User {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public Integer getUserId() {
-		return userId;
-	}
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
-	
 	public String getPassword() {
 		return password;
 	}
@@ -63,11 +68,6 @@ public class User {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public String getIsOnline() {
-		return isOnline;
-	}
-	public void setIsOnline(String isOnline) {
-		this.isOnline = isOnline;
-	}
+	
 
 }

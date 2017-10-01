@@ -1,6 +1,6 @@
 package com.collab.CollaborationBack.Dao;
 
-import java.util.List;
+
 
 import javax.transaction.Transactional;
 
@@ -24,12 +24,15 @@ public class UserDaoImpl implements UserDao {
 		this.sessionFactory=sessionFactory;
 		System.out.println("session created");
 	}
-	@Transactional
-	public boolean addUser(User user) {
+	
+	public boolean registeruser(User user) {
 		try 
 		{
-		sessionFactory.getCurrentSession().saveOrUpdate(user);
+			System.out.println("RUN 3");
+		sessionFactory.getCurrentSession().save(user);
+		System.out.println("RUN 4");
 		System.out.println("user table is created");
+		
 		return true;
 		}
 		catch(Exception e)
@@ -38,63 +41,49 @@ public class UserDaoImpl implements UserDao {
 			return false;
 		}
 	}
-	@Transactional
-	public boolean updateUser(User user) {
-
-		try{
-		sessionFactory.getCurrentSession().update(user);
-		System.out.println("table is updated");
-		return true;
-		}
-		catch(Exception e)
-		{
-			System.out.println("Exception is "+e);
+	public boolean isvalidemail(String emailId) {
+		
+		Session session=sessionFactory.getCurrentSession();
+		Query query=session.createQuery("from User where emailId=?");
+		query.setString(0, emailId);
+		User user=(User)query.uniqueResult();
+		if(user==null)
+		    return true;
+		else
 			return false;
-		}
+	}
+	public boolean isvalidusername(String userName) {
+		
+		Session session=sessionFactory.getCurrentSession();
+		System.out.println("RUN 1");
+		User user=(User)session.get(User.class, userName);
+		System.out.println("RUN 2");
+		if(user==null)
+		    return true;
+		else
+			return false;
+
+		
 		
 	}
-	@Transactional
-	public boolean deleteUser(int userId) {
-		try{
-			Session session= sessionFactory.getCurrentSession();
-			User user=(User)session.load(User.class, userId);
-			session.delete(user);
-			return true;
-			}
-			catch(Exception e)
-			{
-				System.out.println("Exception is "+e);
-				return false;
-			}
+	public User login(User user) {
+		
+		Session session=sessionFactory.getCurrentSession();
+		System.out.println("LOGIN 1");
+		Query query=session.createQuery("from User where userName=? and password=?");
+        query.setString(0, user.getUserName());
+		query.setString(1, user.getPassword());
+		System.out.println("LOGIN 2");
+		user=(User)query.uniqueResult();
+		return user;
 	}
-	@Transactional
-	public List<User> getUser() {
-		try{
-			Session session=sessionFactory.openSession();
-			Query query=session.createQuery("from User ");
-			List<User> listuser=query.list();
-			return listuser;
-			}
-			catch(Exception e)
-			{
-				System.out.println("Exception is "+e);
-				return null;
-			}
+	public void update(User user) {
+	
+		Session session = sessionFactory.getCurrentSession();
+		session.update(user);
 	}
-	@Transactional
-	public User getUserById(int userId) {
-		try{
-			Session session=sessionFactory.getCurrentSession();
-			Query query=session.createQuery("from User where userId"+userId);
-			query.setParameter(0, userId);
-			User userlist=(User)query.getSingleResult();
-			return userlist;
-			}
-			catch(Exception e)
-			{
-				System.out.println("Exception is "+e);
-				return null;
-			}
-	}
-
+	
+	
+	
+	
 }

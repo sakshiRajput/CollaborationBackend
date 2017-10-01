@@ -6,10 +6,9 @@ import com.collab.CollaborationBack.model.User;
 
 public interface UserDao {
 	
-	public boolean addUser(User user);
-	public boolean updateUser(User user);
-	public boolean deleteUser(int userId);
-	List<User> getUser();
-	User getUserById(int userId);
-
+	boolean registeruser(User user);
+	boolean isvalidemail(String emailId);
+	boolean isvalidusername(String username);
+	User login(User user);
+	void update(User user);
 }

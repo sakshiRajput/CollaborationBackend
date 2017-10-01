@@ -22,7 +22,6 @@ public class FriendDaoImpl implements FriendDao{
 		try 
 		{
 		sessionFactory.getCurrentSession().save(friend);
-		System.out.println("creating friend 3");
 		return true;
 		
 		}
@@ -37,7 +36,6 @@ public class FriendDaoImpl implements FriendDao{
 		try{
 			sessionFactory.getCurrentSession().update(friend);
 			System.out.println("table is updated");
-			System.out.println("id:-");
 			return true;
 			}
 			catch(Exception e)
@@ -64,8 +62,7 @@ public class FriendDaoImpl implements FriendDao{
 	public Friend getfriend(int friendId) {
 		try{
 			Session session=sessionFactory.getCurrentSession();
-			Query query=session.createQuery("from Friend where friendId=?");
-			query.setParameter(0, friendId);
+			Query query=session.createQuery("from Friend where friendId="+friendId);
 			Friend friendlist=(Friend)query.getSingleResult();
 			return friendlist;
 			}

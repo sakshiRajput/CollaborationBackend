@@ -33,17 +33,17 @@ public class UserTestCase {
 		User user=new User();
 		user.setEmailId("sak@gmail.com");
 		user.setFirstName("sakshi");
-		user.setIsOnline("yes");
+		user.setOnline(true);;
 		user.setLastName("raj");
 		user.setPassword("pass");
 		user.setRole("user");
 		user.setStatus("A");
-		user.setUserId(123);
-		userDao.addUser(user);
-		assertTrue("problem in adding user",userDao.addUser(user));
+		user.setUserName("sakshi");;
+		userDao.registeruser(user);
+		assertTrue("problem in adding user",userDao.registeruser(user));
 		
 	}
-	 @Ignore
+/*	 @Ignore
 	@Test
 	public void editusertest() {
 	
@@ -55,7 +55,7 @@ public class UserTestCase {
 		user.setPassword("pass");
 		user.setRole("user");
 		user.setStatus("A");
-		user.setUserId(123);
+		user.setUserName("sakshi");;
 	
 		assertTrue("problem in editing user",userDao.updateUser(user));
 		
@@ -65,7 +65,7 @@ public class UserTestCase {
 	  @Test
 		public void deleteuser()
 		{
-			 assertTrue("problem iin user deletion",userDao.deleteUser(123));
+			 assertTrue("problem iin user deletion",userDao.deleteUser("sakshi"));
 		}
 	
 	  @Ignore
@@ -75,6 +75,6 @@ public class UserTestCase {
 			 List<User> listuser=userDao.getUser();
 			 assertTrue("No users",listuser.size()>0);
 		}
-	  
+	*/  
 
 }

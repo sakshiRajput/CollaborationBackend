@@ -64,8 +64,7 @@ public class JobDaoImpl implements JobDao{
 	public List<Job> getalljob() {
 		try{
 			Session session=sessionFactory.openSession();
-			@SuppressWarnings("rawtypes")
-			Query query=session.createQuery("from Job ");
+			Query query=session.createQuery("from Job");
 			List<Job> listjob=query.list();
 			return listjob;
 			}
@@ -79,8 +78,8 @@ public class JobDaoImpl implements JobDao{
 	public Job getjobById(int jobId) {
 		try{
 			Session session=sessionFactory.getCurrentSession();
-			Query query=session.createQuery("from Job where jobId="+jobId);
-			//query.setParameter(0, jobId);
+			Query query=session.createQuery("from Job where jobId=?");
+			query.setParameter(0, jobId);
 			Job joblist=(Job)query.getSingleResult();
 			//session.close();
 			return joblist;
