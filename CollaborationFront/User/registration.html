@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+<title>Registration</title>
+
+</head>
+<body>
+
+
+           <h1>Registration</h1>	  
+<form aligh="center"> 
+	<div class="row input-container" >
+         	<div class="col-xs-12">
+				<div class="styled-input wide">
+					<input type="text" ng-model="user.userName" required />
+					<span style="color:red" ng-if="error.code==2">{{error.message}}</span>
+					<label>UserName </label>
+				</div>
+			</div>
+			<div class="col-xs-12">
+				<div class="styled-input wide">
+					<input type="email" ng-model="user.emailId" required />
+					<span style="color:red" ng-if="error.code==3">{{error.message}}</span>
+					<label>Email</label> 
+				</div>
+			</div>
+			<div class="col-md-6 col-sm-12">
+				<div class="styled-input ">
+					<input type="text" ng-model="user.firstName"required />
+					
+					<label>First Name</label> 
+				</div>
+			</div>
+			<div class="col-md-6 col-sm-12">
+				<div class="styled-input" >
+					<input type="text" ng-model="user.lastName" required />
+					<label>Last Name</label> 
+				</div>
+			</div>
+			<div class="col-xs-12">
+				<div class="styled-input wide">
+					<input type="password" ng-model="user.password" required />
+					<label>Password  </label>
+				</div>
+			</div>
+			<div class="col-xs-12">
+			 <div class="styled-input wide">
+                    <input type="text" ng-model="user.role" required />
+                    <label>Role  </label>
+             </div>
+             
+          
+			</div>
+			<div class="col-xs-12">
+				
+				<input type="submit" value="Register" ng-click="registerUser()" class="form-control"/>
+			</div>
+			
+	</div>
+</form>
+
+
+</body>
+</html>

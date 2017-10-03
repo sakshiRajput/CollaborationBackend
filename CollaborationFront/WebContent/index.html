@@ -7,15 +7,23 @@
 <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular-cookies.js"></script>
 <script src="app.js"></script>
 <script src="User/usercontroller.js"></script>
 <script src="User/userservice.js"></script>
+<script src="Blog/blogcontroller.js"></script>
+<script src="Blog/blogservice.js"></script>
 ​</head>
 <body ng-app="myApp">
 
 ​<p><a href="#!/">Main</a></p>
-<a href="#!/login">Login</a>
-<a href="#!/register">Register</a>
+<li><a href="#!/login" ng-hide="currentUser.userName">Login</a></li>
+<li><a href="#!/register" ng-hide="currentUser.userName">Register</a></li>
+<li><a href="#!/addblog">Add Blog</a></li>
+<li><a href="#!/editProfile" ng-show="currentUser.userName">Edit Profile</a></li>
+<li><a href="#!/logout" ng-click="logout()" ng-show="currentUser.userName">Logout</a></li>
+
+<li ng-show="currentUser.userName">welcome {{currentUser.userName}}</li>
 ​<p>-------------------------------------------------------------------------------</p>
 <div ng-view ></div>
 ​</body>
