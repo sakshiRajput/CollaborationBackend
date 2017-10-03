@@ -2,6 +2,8 @@ package com.collab.CollaborationBack.Dao;
 
 
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.hibernate.Session;
@@ -10,7 +12,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-
+import com.collab.CollaborationBack.model.Blog;
 import com.collab.CollaborationBack.model.User;
 
 @Repository("userDao")
@@ -55,9 +57,9 @@ public class UserDaoImpl implements UserDao {
 	public boolean isvalidusername(String userName) {
 		
 		Session session=sessionFactory.getCurrentSession();
-		System.out.println("RUN 1");
+		//System.out.println("RUN 1");
 		User user=(User)session.get(User.class, userName);
-		System.out.println("RUN 2");
+	//	System.out.println("RUN 2");
 		if(user==null)
 		    return true;
 		else
@@ -81,6 +83,28 @@ public class UserDaoImpl implements UserDao {
 	
 		Session session = sessionFactory.getCurrentSession();
 		session.update(user);
+	}
+
+	public User getuser(String username) {
+		try{
+			Session session=sessionFactory.getCurrentSession();
+			Query query=session.createQuery("from User where userName=?");
+			query.setParameter(0, username);
+			User userlist=(User)query.getSingleResult();
+			return userlist;
+			}
+			catch(Exception e)
+			{
+				System.out.println("Exception is "+e);
+				return null;
+			}
+	}
+
+	public List<User> getallusers() {
+		Session session=sessionFactory.openSession();
+		Query query=session.createQuery("from User ");
+		List<User> userlist=query.list();
+		return userlist;
 	}
 	
 	

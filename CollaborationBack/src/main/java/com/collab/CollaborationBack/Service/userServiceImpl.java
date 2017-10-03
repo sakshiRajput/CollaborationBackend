@@ -1,5 +1,7 @@
 package com.collab.CollaborationBack.Service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +38,16 @@ public class userServiceImpl implements UserService{
 		
 	      userDao.update(user);
 		
+	}
+
+	public User getuser(String username) {
+		
+		return userDao.getuser(username);
+	}
+
+	public List<User> getallusers() {
+		
+		return userDao.getallusers();
 	}
 
 }

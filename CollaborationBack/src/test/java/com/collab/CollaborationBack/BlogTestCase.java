@@ -39,7 +39,7 @@ public class BlogTestCase {
 		blog.setCreateDate(new java.util.Date());
 		blog.setLikes(0);
 		blog.setStatus("NA");
-		blog.setUserId(22);
+		blog.setUserName("sak");;
 		blogDao.createBlog(blog);
 		
 		assertTrue("problem in blog creation",blogDao.createBlog(blog));
@@ -55,8 +55,8 @@ public class BlogTestCase {
 	   blog.setCreateDate(new java.util.Date());
 	   blog.setLikes(0);
 	   blog.setStatus("NA");
-	   blog.setUserId(123);
-       //blogDao.approveBlog(blog);
+		blog.setUserName("sak");;
+    
        
        assertTrue("approved blog",blogDao.approveBlog(blog));
     }
@@ -82,7 +82,7 @@ public class BlogTestCase {
 		   blog.setCreateDate(new java.util.Date());
 		   blog.setLikes(0);
 		   blog.setStatus("NA");
-		   blog.setUserId(122);
+			blog.setUserName("sak");;
 		
 		 assertTrue("blog edited",blogDao.editBlog(blog));
 	}

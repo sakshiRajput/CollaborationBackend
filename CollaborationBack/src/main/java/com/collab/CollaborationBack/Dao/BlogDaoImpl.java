@@ -33,7 +33,8 @@ public class BlogDaoImpl implements BlogDao{
 	public boolean createBlog(Blog blog) {
 		try 
 		{
-		sessionFactory.getCurrentSession().saveOrUpdate(blog);
+		sessionFactory.getCurrentSession().save(blog);
+		System.out.println("Insertion succesfull ");
 		return true;
 		}
 		catch(Exception e)

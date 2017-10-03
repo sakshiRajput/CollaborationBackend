@@ -2,6 +2,7 @@ package com.collab.CollaborationBack.Dao;
 
 import java.util.List;
 
+
 import com.collab.CollaborationBack.model.User;
 
 public interface UserDao {
@@ -11,4 +12,6 @@ public interface UserDao {
 	boolean isvalidusername(String username);
 	User login(User user);
 	void update(User user);
+	public User getuser(String username);
+	public List<User> getallusers();
 }
