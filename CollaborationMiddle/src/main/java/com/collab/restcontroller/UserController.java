@@ -1,83 +1,114 @@
 package com.collab.restcontroller;
 
-import java.util.ArrayList;
+
+import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.collab.CollaborationBack.Dao.UserDao;
-import com.collab.CollaborationBack.model.User;
 
-@RestController
+import com.collab.CollaborationBack.Service.UserService;
+import com.collab.CollaborationBack.model.Error;
+import com.collab.CollaborationBack.model.User;
+@Transactional
+@Controller
 public class UserController {
 	
+	
 	@Autowired
-	UserDao userDao;
+	private UserService userService;
 	
-	@GetMapping(value="/getallusers")
-	public ResponseEntity<ArrayList<User>> getallusers()
-	{
-		ArrayList<User> listusers=new ArrayList<User>();
-		listusers=(ArrayList<User>)userDao.getUser();
-		return new ResponseEntity<ArrayList<User>>(listusers,HttpStatus.OK);
-		
-	}
-	
-	@PostMapping(value="/adduser")
-	public ResponseEntity <String> createuser(@RequestBody User user)
-	{
-	
-		user.setRole("User");
-		user.setStatus("NA");
-		
-		if(userDao.addUser(user))
-		{  return new ResponseEntity <String> ("user added",HttpStatus.OK);}
-		else
-		{ return new ResponseEntity <String> ("problem in adding",HttpStatus.NOT_ACCEPTABLE);}
-	
-	}
-
-
-	@DeleteMapping("/deleteuser/{userId}")
-	public ResponseEntity<String> deleteBlog (@PathVariable("userId")Integer userId)
-	{
-		if(userDao.deleteUser(userId))
-		{return new ResponseEntity<String> ("user Deleted",HttpStatus.OK);}
-		 else
-		 {return new ResponseEntity <String> ("problem in deleting",HttpStatus.NOT_ACCEPTABLE); }
-		
-
-	}
-	
-	@PutMapping(value="/edituser/{userId}")
-	public ResponseEntity<String> editBlog (@PathVariable("userId")Integer userId,@RequestBody User user)
-	{
-		User newuser=userDao.getUserById(userId);
-	
-		newuser.setEmailId(user.getEmailId());
-		newuser.setFirstName(user.getFirstName());
-		newuser.setLastName(user.getLastName());
-		newuser.setPassword(user.getPassword());
-		
-		if(userDao.updateUser(newuser))
-		 {return new ResponseEntity <String> ("user updates",HttpStatus.OK);}
-		 else
-		 {return new ResponseEntity <String> ("problem in updating",HttpStatus.NOT_ACCEPTABLE); }
-	}
-	
-	@GetMapping("/getuser/{Id}")
-	public ResponseEntity<User> getforumcomment(@PathVariable("Id")Integer userId)
-		{
-		    User listusers=(User)userDao.getUserById(userId);
-			return new ResponseEntity<User>(listusers,HttpStatus.OK);
+	@RequestMapping(value="/login",method=RequestMethod.POST)
+	public ResponseEntity<?> login(@RequestBody User user,HttpSession session)
+	{  user.setStatus("NA");
+	   user.setOnline(true);
 			
+		User validuser=userService.login(user);
+	if(validuser==null)
+	{
+		Error error=new Error(4,"Invalid username/password");
+		return new ResponseEntity<Error>(error,HttpStatus.UNAUTHORIZED);
 	}
+	System.out.println("online status before update"+ validuser.isOnline());
+	validuser.setOnline(true);
+	try{
+		userService.update(validuser);
+	}catch(Exception e)
+	{
+		Error error=new Error(6,"unable to update online status");
+		return new ResponseEntity<Error>(error,HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	System.out.println("online status after update"+ validuser.isOnline());
+	return new ResponseEntity<User>(validuser,HttpStatus.OK);
+		
+		
+	}
+	
+	@RequestMapping(value="/registeruser",method=RequestMethod.POST)
+	public ResponseEntity<?> registerUser(@RequestBody User user)
+	{
+		if(!userService.isvalidusername(user.getUserName()))
+		{
+			Error error=new Error(2,"username already exists");
+			return new ResponseEntity<Error>(error,HttpStatus.NOT_ACCEPTABLE);
+		
+		}
+		if(!userService.isvalidemail(user.getEmailId()))
+		{
+			Error error=new Error(3,"emailId already exists");
+			return new ResponseEntity<Error>(error,HttpStatus.NOT_ACCEPTABLE);
+		
+		}
+		boolean result=userService.registeruser(user);
+		if(result)
+		{
+			return new ResponseEntity<User>(user,HttpStatus.OK);
+		}
+		else{
+			Error error=new Error(1,"unable to register user");
+			System.out.println("error"+error);
+			return new ResponseEntity<Error>(error,HttpStatus.INTERNAL_SERVER_ERROR);
+		
+		}
+	}
+
+	@RequestMapping(value="/logout",method=RequestMethod.PUT)
+	public ResponseEntity<?> logout(HttpSession session)
+	{
+		String userName=(String)session.getAttribute("userName");
+		System.out.println("name of the user:-"+userName);
+		if(userName==null)
+		{
+			Error error=new Error(5,"unauthorised access");
+			return new ResponseEntity<Error>(error,HttpStatus.UNAUTHORIZED);
+		}
+		User user=userService.getuser(userName);
+		user.setOnline(false);
+		userService.update(user);
+		session.removeAttribute("userName");
+		session.invalidate();
+		return new ResponseEntity<String>("logout",HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/getuser",method=RequestMethod.GET)
+	public ResponseEntity<?> getuser(HttpSession session)
+	{
+		String userName=(String)session.getAttribute("userName");
+		if(userName==null)
+		{
+			Error error=new Error(6,"unauthorised access");
+			return new ResponseEntity<Error>(error,HttpStatus.UNAUTHORIZED);
+		}
+		User user=userService.getuser(userName);
+		return new ResponseEntity<User>(user,HttpStatus.OK);
+	}
+	
+
 }

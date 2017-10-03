@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.collab.CollaborationBack.Dao.BlogDao;
 import com.collab.CollaborationBack.model.Blog;
+import com.collab.CollaborationBack.model.Error;
 
 @RestController
 public class BlogController {
@@ -33,16 +34,17 @@ public class BlogController {
 	}
 	
 	@PostMapping(value="/createblog")
-	public ResponseEntity <String> createblog(@RequestBody Blog blog)
+	public ResponseEntity <?> createblog(@RequestBody Blog blog)
 	{
 		blog.setCreateDate(new java.util.Date());
 		blog.setStatus("NA");
 		blog.setLikes(0);
 		
 		if(blogDao.createBlog(blog))
-		{  return new ResponseEntity <String> ("Blog created",HttpStatus.OK);}
+		{  return new ResponseEntity<Blog>(blog,HttpStatus.OK); }
 		else
-		{ return new ResponseEntity <String> ("problem in creating",HttpStatus.NOT_ACCEPTABLE);}
+		{ Error error=new Error(9,"unable to add blog");
+		   return new ResponseEntity<Error>(error,HttpStatus.INTERNAL_SERVER_ERROR);}
 	
 	}
 	@PutMapping(value="/approveblog/{blogId}")
@@ -73,6 +75,7 @@ public class BlogController {
 	public ResponseEntity<String> editBlog (@PathVariable("blogId")Integer blogId,@RequestBody Blog blog)
 	{
 		Blog editedblog=blogDao.getBlog(blogId);
+		editedblog.setLikes(blog.getLikes());
 		editedblog.setBlogName(blog.getBlogName());
 		editedblog.setBlogContent(blog.getBlogContent());
 		editedblog.setCreateDate(new java.util.Date()); 
