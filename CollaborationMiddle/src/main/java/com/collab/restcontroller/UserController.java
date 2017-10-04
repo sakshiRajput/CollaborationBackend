@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+
 
 
 import com.collab.CollaborationBack.Service.UserService;
@@ -110,5 +110,33 @@ public class UserController {
 		return new ResponseEntity<User>(user,HttpStatus.OK);
 	}
 	
-
+	@RequestMapping(value="/updateuser",method=RequestMethod.PUT)
+	public ResponseEntity<?> updateuser(@RequestBody User user,HttpSession session)
+	{
+		String userName=(String)session.getAttribute("userName");
+		if(userName==null)
+		{
+			Error error=new Error(6,"unauthorised access");
+			return new ResponseEntity<Error>(error,HttpStatus.UNAUTHORIZED);
+		}
+		if(!userService.isupdatdemailvalid(user.getUserName(),user.getEmailId()))
+		{
+			Error error=new Error(3,"emailId already exists");
+			return new ResponseEntity<Error>(error,HttpStatus.NOT_ACCEPTABLE);
+		
+		}
+		try
+		{
+			userService.update(user);
+			return new ResponseEntity<User>(user,HttpStatus.OK);
+		}
+		catch(Exception e)
+		{
+			Error error=new Error(1,"unable to register user");
+			return new ResponseEntity<Error>(error,HttpStatus.INTERNAL_SERVER_ERROR);
+		
+		}
+			
+	}
+	
 }
