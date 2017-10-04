@@ -14,5 +14,5 @@ User login(User user);
 void update(User user);
 User getuser(String username);
 List<User> getallusers();	
-	
+boolean isupdatdemailvalid(String username,String emailId);	
 }

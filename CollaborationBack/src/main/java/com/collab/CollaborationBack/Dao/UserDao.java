@@ -14,4 +14,5 @@ public interface UserDao {
 	void update(User user);
 	public User getuser(String username);
 	public List<User> getallusers();
+	public boolean isupdatdemailvalid(String username,String emailId);
 }

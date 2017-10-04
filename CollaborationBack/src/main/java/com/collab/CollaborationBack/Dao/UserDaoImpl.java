@@ -106,6 +106,18 @@ public class UserDaoImpl implements UserDao {
 		List<User> userlist=query.list();
 		return userlist;
 	}
+
+	public boolean isupdatdemailvalid(String username, String emailId) {
+		Session session=sessionFactory.openSession();
+		Query query=session.createQuery("from User where emailid=? and usrname!=? ");
+		query.setParameter(0, username);
+		query.setParameter(1, emailId);
+		User user=(User)query.uniqueResult();
+		if(user==null)
+		    return true;
+		else 
+			return false;	
+	}
 	
 	
 	

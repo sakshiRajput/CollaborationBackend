@@ -50,4 +50,9 @@ public class userServiceImpl implements UserService{
 		return userDao.getallusers();
 	}
 
+	public boolean isupdatdemailvalid(String username, String emailId) {
+		
+		return userDao.isupdatdemailvalid(username, emailId);
+	}
+
 }

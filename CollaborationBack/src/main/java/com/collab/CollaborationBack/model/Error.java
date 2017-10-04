@@ -5,12 +5,12 @@ public class Error {
 
 	
 	private int code;
-	private String messege;
-	public Error(int code,String messege)
+	private String message;
+	public Error(int code,String message)
 	{
 	super();
 	this.code=code;
-	this.messege=messege;
+	this.message=message;
 		
 	}
 	public int getCode() {
@@ -19,11 +19,11 @@ public class Error {
 	public void setCode(int code) {
 		this.code = code;
 	}
-	public String getMessege() {
-		return messege;
+	public String getMessage() {
+		return message;
 	}
-	public void setMessege(String messege) {
-		this.messege = messege;
+	public void setMessege(String message) {
+		this.message = message;
 	}
 	
 }
