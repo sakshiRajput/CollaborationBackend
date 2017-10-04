@@ -43,14 +43,17 @@ app.run(function($rootScope,$cookieStore,UserService,$location)
 	{	$rootScope.currentUser=$cookieStore.get('userDetails')  }
 		
 		$rootScope.logout=function()
-		{
+		{   	delete $rootScope.currentUser;
 		    UserService.logout().then(function(response){
-			delete $rootScope.currentUser;
+			
 			$cookieStore.remove('userDetails')
 			$location.path('/login')
-		},function(response){
-			console.log(response.status)
-			$location.path('/')
+	    	},function(response){
+			if(response.status==401){
+				delete $rootScope.currentUser;
+				$cookieStore.remove('userDetails');
+		     	$location.path('/')
+			}
 		})
 		}
 	})

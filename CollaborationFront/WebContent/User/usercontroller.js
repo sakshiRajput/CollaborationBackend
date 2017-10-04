@@ -2,14 +2,14 @@
  *User controller 
  */
 
-app.controller('UserController',function($scope,UserService,$location){
+app.controller('UserController',function($scope,UserService,$location,$rootScope,$cookieStore){
 	$scope.registerUser=function()
 	{
 		console.log("user data is" +$scope.user)
 		UserService.registerUser($scope.user).then(function(response){
 			console.log(response.data)
 			console.log(response.status)
-			$location.path('/')
+			$location.path('/login')
 		},function(response)
 		{
 			console.log(response.data)
@@ -23,10 +23,40 @@ app.controller('UserController',function($scope,UserService,$location){
 	{
 		console.log($scope.user)
 		UserService.login($scope.user).then(function(response){
+			$rootScope.currentUser=response.data
+			$cookieStore.put('userDetails',response.data)
 			$location.path('/')
 		},function(response){
-			console.error=response.data.message
+		
+			$scope.error=response.data
 			$location.path('/login')
 		})
 	}
-})
+	
+	$scope.updateUser=function()
+	{
+		UserService.updateUser($scope.user).then(function(response){
+			alert ('updated the details succesfully')
+			$location.path('/')
+		},function(response){
+			if(response.status==401)
+				{	$location.path('/login')    }
+			else{
+				$scope.error=response.data
+				$location.path('/')
+			    }
+		})
+	}
+	
+
+	
+	
+	if($rootScope.currentUser!=undefined){
+		UserService.getuser().then(function(response){
+			$scope.user=response.data
+		},function(response){
+			console.log(response.data)
+		})
+	}
+	
+});

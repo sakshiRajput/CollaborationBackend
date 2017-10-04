@@ -13,20 +13,22 @@
 <script src="User/userservice.js"></script>
 <script src="Blog/blogcontroller.js"></script>
 <script src="Blog/blogservice.js"></script>
-​</head>
+​
+</head>
 <body ng-app="myApp">
 
 ​<p><a href="#!/">Main</a></p>
 <li><a href="#!/login" ng-hide="currentUser.userName">Login</a></li>
 <li><a href="#!/register" ng-hide="currentUser.userName">Register</a></li>
 <li><a href="#!/addblog">Add Blog</a></li>
-<li><a href="#!/editProfile" ng-show="currentUser.userName">Edit Profile</a></li>
+<li><a href="#!/edituser" ng-show="currentUser.userName">Edit Profile</a></li>
 <li><a href="#!/logout" ng-click="logout()" ng-show="currentUser.userName">Logout</a></li>
 
 <li ng-show="currentUser.userName">welcome {{currentUser.userName}}</li>
 ​<p>-------------------------------------------------------------------------------</p>
 <div ng-view ></div>
 ​</body>
+
 </html>
 ​
 

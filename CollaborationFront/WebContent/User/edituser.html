@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<title>Insert title here</title>
+</head>
+<body>
+
+<h1>Edit User Profile</h1>	  
+<form aligh="center"> 
+	<div class="row input-container" >
+         	<div class="col-xs-12">
+				<div class="styled-input wide">
+					<input type="text" ng-model="user.userName" required />
+					<span style="color:red" ng-if="error.code==2">{{error.message}}</span>
+					<label>UserName </label>
+				</div>
+			</div>
+			<div class="col-xs-12">
+				<div class="styled-input wide">
+					<input type="email" ng-model="user.emailId" required />
+					<span style="color:red" ng-if="error.code==3">{{error.message}}</span>
+					<label>Email</label> 
+				</div>
+			</div>
+			<div class="col-md-6 col-sm-12">
+				<div class="styled-input ">
+					<input type="text" ng-model="user.firstName"required />
+					
+					<label>First Name</label> 
+				</div>
+			</div>
+			<div class="col-md-6 col-sm-12">
+				<div class="styled-input" >
+					<input type="text" ng-model="user.lastName" required />
+					<label>Last Name</label> 
+				</div>
+			</div>
+			<div class="col-xs-12">
+				<div class="styled-input wide">
+					<input type="password" ng-model="user.password" required />
+					<label>Password  </label>
+				</div>
+			</div>
+			<div class="col-xs-12">
+			 <div class="styled-input wide">
+                    <input type="text" ng-model="user.role" required />
+                    <label>Role  </label>
+             </div>
+             
+          
+			</div>
+			<div class="col-xs-12">
+				
+				<input type="submit" value="Register" ng-click="updateUser()" class="form-control"/>
+			</div>
+			
+	</div>
+</form>
+</body>
+</html>
