@@ -32,28 +32,31 @@ app.config(function($routeProvider) {
         controller:'UserController'
     
     })
-	.otherwise(
+    .when('/getblogs', {
+        templateUrl : 'Blog/blogslist.html',
+        controller:'BlogController'
+    
+    })
+    .when('/getblogbyid/:id', {
+        templateUrl : 'Blog/blogdetails.html',
+        controller:'BlogDetailController'
+    
+    })
+     .when('/getapproveform/:id', {
+        templateUrl : 'Blog/blogapprovalform.html',
+        controller:'BlogDetailController'
+    
+    })
+   
+   .otherwise(
 	{  template:'<p>go to the corrent link..wrong address</p>'
 	});
 })
 
-app.run(function($rootScope,$cookieStore,UserService,$location)
-{
-	if ($rootScope.currentUser==undefined)
-	{	$rootScope.currentUser=$cookieStore.get('userDetails')  }
-		
-		$rootScope.logout=function()
-		{   	delete $rootScope.currentUser;
-		    UserService.logout().then(function(response){
-			
-			$cookieStore.remove('userDetails')
-			$location.path('/login')
-	    	},function(response){
-			if(response.status==401){
-				delete $rootScope.currentUser;
-				$cookieStore.remove('userDetails');
-		     	$location.path('/')
-			}
-		})
-		}
-	})
+app.run(function($rootScope,$cookieStore,UserService,$location){
+	if($rootScope.currentUser==undefined)
+	{	
+			$rootScope.currentUser=$cookieStore.get('userDetails')
+			console.log($cookieStore.get('userDetails'));
+	}	
+})

@@ -1,0 +1,14 @@
+Name of blog-{{blog.blogName}}<br>
+content of blog:-{{blog.blogContent}}<br>
+<p>details of blogs waiting for approval</p>
+<p>approve or reject :-</p>
+<form>
+<div class="form-group">
+<input type="radio" ng-model="blog.status" value="A" ng-click="setValueRejectionTxt(false)" > Accept
+<input type="radio"  ng-model="blog.status" value="NA" ng-click="setValueRejectionTxt(true)"> reject<br>
+<p ng-show="showRejectionTxt">
+<textarea rows="5" cols="20" ng-model="blog.rejection_reason"></textarea>
+</p>
+</div>
+<input type="submit" value="Update Blog" ng-click="updateBlog()">
+</form>

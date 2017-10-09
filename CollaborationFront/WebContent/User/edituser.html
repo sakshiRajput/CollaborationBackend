@@ -12,7 +12,7 @@
 	<div class="row input-container" >
          	<div class="col-xs-12">
 				<div class="styled-input wide">
-					<input type="text" ng-model="user.userName" required />
+					<input type="text" ng-model="user.userName" disabled />
 					<span style="color:red" ng-if="error.code==2">{{error.message}}</span>
 					<label>UserName </label>
 				</div>
@@ -27,7 +27,6 @@
 			<div class="col-md-6 col-sm-12">
 				<div class="styled-input ">
 					<input type="text" ng-model="user.firstName"required />
-					
 					<label>First Name</label> 
 				</div>
 			</div>
