@@ -17,22 +17,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.collab.CollaborationBack.Service.UserService;
 import com.collab.CollaborationBack.model.Error;
 import com.collab.CollaborationBack.model.User;
-@Transactional
+
 @Controller
 public class UserController {
 	
 	
 	@Autowired
 	private UserService userService;
+
 	
 	@RequestMapping(value="/login",method=RequestMethod.POST)
 	public ResponseEntity<?> login(@RequestBody User user,HttpSession session)
-	{  user.setStatus("NA");
-	   user.setOnline(true);
-			
-		User validuser=userService.login(user);
+	{  
+	   //user.setStatus("NA");
+	   User validuser=userService.login(user);
+		
 	if(validuser==null)
 	{
+		
 		Error error=new Error(4,"Invalid username/password");
 		return new ResponseEntity<Error>(error,HttpStatus.UNAUTHORIZED);
 	}
@@ -45,6 +47,7 @@ public class UserController {
 		Error error=new Error(6,"unable to update online status");
 		return new ResponseEntity<Error>(error,HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+	session.setAttribute("userName", user.getUserName());
 	System.out.println("online status after update"+ validuser.isOnline());
 	return new ResponseEntity<User>(validuser,HttpStatus.OK);
 		
@@ -82,30 +85,33 @@ public class UserController {
 	@RequestMapping(value="/logout",method=RequestMethod.PUT)
 	public ResponseEntity<?> logout(HttpSession session)
 	{
-		String userName=(String)session.getAttribute("userName");
-		System.out.println("name of the user:-"+userName);
-		if(userName==null)
+        String username=(String)session.getAttribute("userName");
+		System.out.println("name of the logout user:-"+username);
+		if(username==null)
 		{
 			Error error=new Error(5,"unauthorised access");
 			return new ResponseEntity<Error>(error,HttpStatus.UNAUTHORIZED);
 		}
+		String userName="sakshi";
 		User user=userService.getuser(userName);
 		user.setOnline(false);
 		userService.update(user);
 		session.removeAttribute("userName");
 		session.invalidate();
-		return new ResponseEntity<String>("logout",HttpStatus.OK);
+		return new ResponseEntity<String>("logout",HttpStatus.ACCEPTED);
 	}
 	
 	@RequestMapping(value="/getuser",method=RequestMethod.GET)
 	public ResponseEntity<?> getuser(HttpSession session)
 	{
 		String userName=(String)session.getAttribute("userName");
+		System.out.println("getuser userName"+userName);
 		if(userName==null)
 		{
 			Error error=new Error(6,"unauthorised access");
 			return new ResponseEntity<Error>(error,HttpStatus.UNAUTHORIZED);
 		}
+	
 		User user=userService.getuser(userName);
 		return new ResponseEntity<User>(user,HttpStatus.OK);
 	}
@@ -114,11 +120,13 @@ public class UserController {
 	public ResponseEntity<?> updateuser(@RequestBody User user,HttpSession session)
 	{
 		String userName=(String)session.getAttribute("userName");
+		System.out.println("update userName"+userName);
 		if(userName==null)
 		{
 			Error error=new Error(6,"unauthorised access");
 			return new ResponseEntity<Error>(error,HttpStatus.UNAUTHORIZED);
 		}
+		
 		if(!userService.isupdatdemailvalid(user.getUserName(),user.getEmailId()))
 		{
 			Error error=new Error(3,"emailId already exists");
@@ -132,7 +140,7 @@ public class UserController {
 		}
 		catch(Exception e)
 		{
-			Error error=new Error(1,"unable to register user");
+			Error error=new Error(1,"unable to update user");
 			return new ResponseEntity<Error>(error,HttpStatus.INTERNAL_SERVER_ERROR);
 		
 		}
