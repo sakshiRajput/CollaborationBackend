@@ -29,8 +29,7 @@ public class BlogTestCase {
 		
 	}
 	
-	@Ignore
-	@Test
+		@Test
 	public void blogtest() {
 		Blog blog=new Blog();
 		blog.setBlogId(111);
@@ -39,7 +38,8 @@ public class BlogTestCase {
 		blog.setCreateDate(new java.util.Date());
 		blog.setLikes(0);
 		blog.setStatus("NA");
-		
+		//blog.getPostedBy();
+		blog.setRejection_reason("null");;
 		blogDao.createBlog(blog);
 		
 		assertTrue("problem in blog creation",blogDao.createBlog(blog));
@@ -70,11 +70,11 @@ public class BlogTestCase {
 		assertTrue("No approved blogs",listblog.size()>0);
 	}
 	
-   // @Ignore
+    @Ignore
 	@Test
 	public void editblog()
 	{
-		 Blog blog=blogDao.getBlog(111);
+		 Blog blog=blogDao.getBlogById(111);
 		
 		   blog.setBlogId(111);
 		   blog.setBlogName("secondblog");

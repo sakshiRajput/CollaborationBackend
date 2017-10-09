@@ -26,19 +26,22 @@ public class Blog {
 	private String blogContent;
 	private String status;
 	@ManyToOne
-	private User userName;
-	private String rejectionReason;
-   	public User getUserName() {
-		return userName;
+	private User postedBy;
+	public User getPostedBy() {
+		return postedBy;
 	}
-	public void setUserName(User userName) {
-		this.userName = userName;
+	public void setPostedBy(User postedBy) {
+		this.postedBy = postedBy;
 	}
-	public String getRejectionReason() {
-		return rejectionReason;
+	private String rejection_reason;
+   	
+	
+	
+	public String getRejection_reason() {
+		return rejection_reason;
 	}
-	public void setRejectionReason(String rejectionReason) {
-		this.rejectionReason = rejectionReason;
+	public void setRejection_reason(String rejection_reason) {
+		this.rejection_reason = rejection_reason;
 	}
 	private Integer likes;
 	private Date createDate;

@@ -1,7 +1,5 @@
 package com.collab.CollaborationBack.Dao;
 
-
-
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -14,12 +12,12 @@ import org.springframework.stereotype.Repository;
 
 import com.collab.CollaborationBack.model.Blog;
 import com.collab.CollaborationBack.model.User;
-
+@Transactional
 @Repository("userDao")
 public class UserDaoImpl implements UserDao {
    
 	@Autowired
-	SessionFactory sessionFactory;
+	private SessionFactory sessionFactory;
 
 	public UserDaoImpl(SessionFactory sessionFactory)
 	{
@@ -30,9 +28,10 @@ public class UserDaoImpl implements UserDao {
 	public boolean registeruser(User user) {
 		try 
 		{
-			System.out.println("RUN 3");
+			//System.out.println("RUN 3");
+			user.setStatus("NA");
 		sessionFactory.getCurrentSession().save(user);
-		System.out.println("RUN 4");
+		//System.out.println("RUN 4");
 		System.out.println("user table is created");
 		
 		return true;
@@ -43,6 +42,7 @@ public class UserDaoImpl implements UserDao {
 			return false;
 		}
 	}
+
 	public boolean isvalidemail(String emailId) {
 		
 		Session session=sessionFactory.getCurrentSession();
@@ -54,6 +54,7 @@ public class UserDaoImpl implements UserDao {
 		else
 			return false;
 	}
+
 	public boolean isvalidusername(String userName) {
 		
 		Session session=sessionFactory.getCurrentSession();
@@ -68,6 +69,7 @@ public class UserDaoImpl implements UserDao {
 		
 		
 	}
+
 	public User login(User user) {
 		
 		Session session=sessionFactory.getCurrentSession();
@@ -75,33 +77,27 @@ public class UserDaoImpl implements UserDao {
 		Query query=session.createQuery("from User where userName=? and password=?");
         query.setString(0, user.getUserName());
 		query.setString(1, user.getPassword());
-		System.out.println("LOGIN 2");
 		user=(User)query.uniqueResult();
 		return user;
 	}
+
 	public void update(User user) {
 	
 		Session session = sessionFactory.getCurrentSession();
 		session.update(user);
 	}
 
-	public User getuser(String username) {
-		try{
+	public User getuser(String userName) {
+	
 			Session session=sessionFactory.getCurrentSession();
-			Query query=session.createQuery("from User where userName=?");
-			query.setParameter(0, username);
-			User userlist=(User)query.getSingleResult();
-			return userlist;
-			}
-			catch(Exception e)
-			{
-				System.out.println("Exception is "+e);
-				return null;
-			}
+			User user=(User)session.get(User.class, userName);
+			return user;
+			
+			
 	}
 
 	public List<User> getallusers() {
-		Session session=sessionFactory.openSession();
+		Session session=sessionFactory.getCurrentSession();
 		Query query=session.createQuery("from User ");
 		List<User> userlist=query.list();
 		return userlist;
@@ -109,7 +105,7 @@ public class UserDaoImpl implements UserDao {
 
 	public boolean isupdatdemailvalid(String username, String emailId) {
 		Session session=sessionFactory.openSession();
-		Query query=session.createQuery("from User where emailid=? and usrname!=? ");
+		Query query=session.createQuery("from User where  userName!=? and emailId=? ");
 		query.setParameter(0, username);
 		query.setParameter(1, emailId);
 		User user=(User)query.uniqueResult();
@@ -118,6 +114,7 @@ public class UserDaoImpl implements UserDao {
 		else 
 			return false;	
 	}
+
 	
 	
 	

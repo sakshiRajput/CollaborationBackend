@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.collab.CollaborationBack.Dao.UserDao;
+import com.collab.CollaborationBack.model.Blog;
 import com.collab.CollaborationBack.model.User;
 @Service
 public class userServiceImpl implements UserService{
@@ -40,9 +41,9 @@ public class userServiceImpl implements UserService{
 		
 	}
 
-	public User getuser(String username) {
+	public User getuser(String userName) {
 		
-		return userDao.getuser(username);
+		return userDao.getuser(userName);
 	}
 
 	public List<User> getallusers() {
@@ -54,5 +55,7 @@ public class userServiceImpl implements UserService{
 		
 		return userDao.isupdatdemailvalid(username, emailId);
 	}
+
+	
 
 }

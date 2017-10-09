@@ -29,9 +29,9 @@ public class blogServiceImpl implements BlogService{
 		return blogDao.deleteBlog(blogId);
 	}
 
-	public Blog getBlog(Integer blogId) {
+	public Blog getBlogById(Integer blogId) {
 		
-		return blogDao.getBlog(blogId);
+		return blogDao.getBlogById(blogId);
 	}
 
 	public List<Blog> getAllBlogs() {
@@ -42,6 +42,10 @@ public class blogServiceImpl implements BlogService{
 	public boolean approveBlog(Blog blog) {
 		
 		return blogDao.approveBlog(blog);
+	}
+	public List<Blog> getBlogs(String status )
+	{
+		return blogDao.getBlogs(status);
 	}
 
 }

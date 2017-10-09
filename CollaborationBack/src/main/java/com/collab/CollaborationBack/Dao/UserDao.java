@@ -2,7 +2,7 @@ package com.collab.CollaborationBack.Dao;
 
 import java.util.List;
 
-
+import com.collab.CollaborationBack.model.Blog;
 import com.collab.CollaborationBack.model.User;
 
 public interface UserDao {
@@ -15,4 +15,5 @@ public interface UserDao {
 	public User getuser(String username);
 	public List<User> getallusers();
 	public boolean isupdatdemailvalid(String username,String emailId);
+	
 }

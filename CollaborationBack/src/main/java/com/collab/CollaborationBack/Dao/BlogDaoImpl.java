@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import com.collab.CollaborationBack.model.Blog;
 
 @Repository("blogDao")
+@Transactional
 public class BlogDaoImpl implements BlogDao{
 
 	
@@ -29,11 +30,14 @@ public class BlogDaoImpl implements BlogDao{
 	
 
 
-	@Transactional
+	
 	public boolean createBlog(Blog blog) {
 		try 
 		{
-		sessionFactory.getCurrentSession().save(blog);
+		Session s=sessionFactory.getCurrentSession();	
+		blog.setStatus("NA");
+		blog.setLikes(0);
+		s.save(blog);
 		System.out.println("Insertion succesfull ");
 		return true;
 		}
@@ -44,7 +48,7 @@ public class BlogDaoImpl implements BlogDao{
 		}
 		
 	}
-	@Transactional
+	
 	public boolean editBlog(Blog blog) {
 		
 		try{
@@ -60,7 +64,7 @@ public class BlogDaoImpl implements BlogDao{
 		}
 		
 	}
-	@Transactional
+	
 	public boolean deleteBlog(Integer blogId) {
 		
 		try{
@@ -75,8 +79,8 @@ public class BlogDaoImpl implements BlogDao{
 			return false;
 		}
 	}
-	@Transactional
-	public Blog getBlog(Integer blogId) {
+
+	public Blog getBlogById(Integer blogId) {
 	
 		try{
 		Session session=sessionFactory.getCurrentSession();
@@ -91,14 +95,14 @@ public class BlogDaoImpl implements BlogDao{
 			return null;
 		}
 	}
-	@Transactional
+
 	public List<Blog> getAllBlogs() {
 		Session session=sessionFactory.openSession();
-		Query query=session.createQuery("from Blog ");
+		Query query=session.createQuery("from Blog where status='A'");
 		List<Blog> listblog=query.list();
 		return listblog;
 	}
-	@Transactional
+
 	public boolean approveBlog(Blog blog) {
 		try{
 		blog.setStatus("A");
@@ -111,6 +115,17 @@ public class BlogDaoImpl implements BlogDao{
 			return false;
 		}
 		
+	}
+
+
+
+
+	public List<Blog> getBlogs(String status) {
+		Session session=sessionFactory.getCurrentSession();
+		Query query=session.createQuery("from Blog where status=?");
+		query.setParameter(0, status);
+		List<Blog> listblog=query.getResultList();
+		return listblog;
 	}
 
 }
