@@ -17,7 +17,7 @@
 <script src="Blog/blogcontroller.js"></script>
 <script src="Blog/blogservice.js"></script>
 <script src="Blog/blogDetailsController.js"></script>
-​
+​<link rel="stylesheet" href="Css/like.css"></link>
 </head>
 <body ng-app="myApp">
 
@@ -37,7 +37,7 @@
         </ul>
       </li>
       <li><a href="#/edituser" ng-show="currentUser.userName">Edit profile</a></li>
-       <li ng-show="currentUser.userName">WELCOME: {{currentUser.userName}}</li>
+      
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="#/register" ng-hide="currentUser.userName"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
@@ -47,15 +47,7 @@
   </div>
 </nav>
 
-<!-- 
-​<p><a href="#!/">Main</a></p>
-<li><a href="#!/login" ng-hide="currentUser.userName">Login</a></li>
-<li><a href="#!/register" ng-hide="currentUser.userName">Register</a></li>
-<li><a href="#!/addblog">Add Blog</a></li>
-<li><a href="#!/edituser" ng-show="currentUser.userName">Edit Profile</a></li>
-<li><a href="#!/logout" ng-click="logout()" ng-show="currentUser.userName">Logout</a></li>
 
-<p ng-show="currentUser.userName">welcome {{currentUser.userName}}</li>   -->
 ​<p>-------------------------------------------------------------------------------</p>
 <p ng-show="currentUser.userName">welcome {{currentUser.userName}}</p>
 <div ng-view ></div>

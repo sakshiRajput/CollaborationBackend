@@ -21,6 +21,9 @@ app.factory('BlogService',function($http){
 	blogService.updateBlog=function(blog){
 		return $http.put(BASE_URL + "/update",blog)	
 	}
+	blogService.updateLikes=function(blog){
+		return $http.put(BASE_URL + "/update",blog)	
+	}
 	return blogService;
 	
 })
