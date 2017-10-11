@@ -134,11 +134,12 @@ public class BlogController {
 		Error error=new Error(6,"unauthorised access");
 		return new ResponseEntity<Error>(error,HttpStatus.UNAUTHORIZED);
 	    }
-    	if(blog.getStatus()!=null && blog.getRejection_reason()==null)
-    		blog.setRejection_reason("Not Mentioned");
+    	if(blog.getStatus()=="NA" && blog.getRejection_reason()==null)
+    	{ blog.setRejection_reason("Not Mentioned");  }
 	    blogService.editBlog(blog);
 	    return new ResponseEntity <Blog> (blog,HttpStatus.OK); 
 	}
+	
 	
 	
 	

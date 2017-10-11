@@ -1,6 +1,11 @@
 package com.collab.restcontroller;
 
-import java.util.ArrayList;
+
+
+import java.util.List;
+import java.util.Date;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,7 +19,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.collab.CollaborationBack.Dao.BlogcommentDao;
+import com.collab.CollaborationBack.Service.UserService;
 import com.collab.CollaborationBack.model.BlogComment;
+import com.collab.CollaborationBack.model.Error;
+import com.collab.CollaborationBack.model.User;
 
 @RestController
 public class BlogCommentController {
@@ -22,18 +30,30 @@ public class BlogCommentController {
 	@Autowired
 	BlogcommentDao blogcommentDao;
 	
-	
 
-	@PostMapping(value="/createblogcomment")
-	public ResponseEntity <String> createblogcomment(@RequestBody BlogComment blogcomment)
+	@Autowired
+	private UserService userService;
+
+	@PostMapping(value="/addcomment")
+	public ResponseEntity <?> createblogcomment(@RequestBody BlogComment blogComment,HttpSession session)
 	{
-		blogcomment.setCommentDate(new java.util.Date());
-		
-		
-		if(blogcommentDao.createBlogcomment(blogcomment))
-		{  return new ResponseEntity <String> ("Blogcomment created",HttpStatus.OK);}
-		else
-		{ return new ResponseEntity <String> ("problem in creating",HttpStatus.NOT_ACCEPTABLE);}
+		 String userName=(String) session.getAttribute("userName");
+	   	if(userName==null)
+		    {
+			Error error=new Error(6,"unauthorised access");
+			return new ResponseEntity<Error>(error,HttpStatus.UNAUTHORIZED);
+		    }
+	   	User user=userService.getuser(userName);
+	   	blogComment.setCommentedBy(user);
+		blogComment.setCommentDate(new Date());
+		try
+		{ blogcommentDao.createBlogcomment(blogComment);
+		   return new ResponseEntity<BlogComment>(blogComment,HttpStatus.OK);
+		}
+		catch(Exception e)
+		{ Error error=new Error(7,"unable to post");
+		  return new ResponseEntity <Error> (error,HttpStatus.NOT_ACCEPTABLE);
+		}
 	
 	}
 	
@@ -49,12 +69,16 @@ public class BlogCommentController {
 		
 
 	}
-	@GetMapping(value="/getallblogcomments")
-	public ResponseEntity<ArrayList<BlogComment>> getallblogcomments()
-	{
-		ArrayList<BlogComment> listblogs=new ArrayList<BlogComment>();
-		listblogs=(ArrayList<BlogComment>)blogcommentDao.getAllBlogcomments();
-		return new ResponseEntity<ArrayList<BlogComment>>(listblogs,HttpStatus.OK);
+	@GetMapping(value="/getcomments/{blogId}")
+	public ResponseEntity<?> getcomments(@PathVariable("blogId")Integer blogId,HttpSession session)
+	{    String userName=(String) session.getAttribute("userName");
+        	if(userName==null)
+        	{
+        		Error error=new Error(6,"unauthorised access");
+        		return new ResponseEntity<Error>(error,HttpStatus.UNAUTHORIZED);
+        	}
+		List<BlogComment> blogcomments=blogcommentDao.getBlogcomments(blogId);
+		return new ResponseEntity<List<BlogComment>>(blogcomments,HttpStatus.OK);
 		
 	}
 	
@@ -64,7 +88,7 @@ public class BlogCommentController {
 		BlogComment newblogcomment=blogcommentDao.getBlogcomment(blogcommentId);
 		newblogcomment.setBlogComment(blogcomment.getBlogComment());
 		newblogcomment.setCommentDate(new java.util.Date());
-		newblogcomment.setUserName(blogcomment.getUserName());
+		//newblogcomment.setUserName(blogcomment.getUserName());
 		if(blogcommentDao.editBlogcomment(newblogcomment))
 		 {return new ResponseEntity <String> ("blogcomment edited",HttpStatus.OK);}
 		 else
