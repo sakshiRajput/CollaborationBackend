@@ -88,10 +88,10 @@ public class BlogcommentDaoImpl implements BlogcommentDao{
 			}
 	}
 	@Transactional
-	public List<BlogComment> getAllBlogcomments() {
+	public List<BlogComment> getBlogcomments(int blogId) {
 		try{
 			Session session=sessionFactory.openSession();
-			Query query=session.createQuery("from BlogComment");
+			Query query=session.createQuery("from BlogComment where blog.blogId="+blogId);
 			List<BlogComment> listblogcomment=query.list();
 			return listblogcomment;
 		}
@@ -101,5 +101,8 @@ public class BlogcommentDaoImpl implements BlogcommentDao{
 			return null;
 		}
 	}
+	
+
+
 
 }

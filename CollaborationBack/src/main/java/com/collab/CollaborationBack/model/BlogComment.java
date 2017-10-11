@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -18,24 +20,29 @@ import org.springframework.stereotype.Component;
 @Table(name="BlogComment")
 public class BlogComment {
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer blogcommentId;
-	private Integer blogId;
+	
 	private String blogComment;
 	private Date commentDate;
-	private Integer userId;
-	private String userName;
-	public Integer getBlogId() {
-		return blogId;
+	@ManyToOne
+	private User commentedBy;
+	public User getCommentedBy() {
+		return commentedBy;
 	}
-	public void setBlogId(Integer blogId) {
-		this.blogId = blogId;
+	public void setCommentedBy(User commentedBy) {
+		this.commentedBy = commentedBy;
 	}
-	public Integer getUserId() {
-		return userId;
+	public Blog getBlog() {
+		return blog;
 	}
-	public void setUserId(Integer userId) {
-		this.userId = userId;
+	public void setBlog(Blog blog) {
+		this.blog = blog;
 	}
+	@ManyToOne
+	private Blog blog;
+	
+	
 	
 	public String getBlogComment() {
 		return blogComment;
@@ -59,12 +66,6 @@ public class BlogComment {
 		this.commentDate = commentDate;
 	}
 	
-	public String getUserName() {
-		return userName;
-	}
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
 	
 	
 	

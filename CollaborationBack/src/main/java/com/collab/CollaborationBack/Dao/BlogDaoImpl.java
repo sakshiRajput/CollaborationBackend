@@ -84,9 +84,10 @@ public class BlogDaoImpl implements BlogDao{
 	
 		try{
 		Session session=sessionFactory.getCurrentSession();
-		Query query=session.createQuery("from Blog where blogid=?");
+		@SuppressWarnings("rawtypes")
+		Query query=session.createQuery("from Blog where blogId=?");
 		query.setParameter(0, blogId);
-		Blog bloglist=(Blog)query.getSingleResult();
+        Blog bloglist=(Blog)query.getSingleResult();
 		return bloglist;
 		}
 		catch(Exception e)

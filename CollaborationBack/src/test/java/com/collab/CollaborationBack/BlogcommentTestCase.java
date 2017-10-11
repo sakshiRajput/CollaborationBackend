@@ -32,11 +32,11 @@ public class BlogcommentTestCase {
 	public void createblogcommenttest() {
 	BlogComment blogcomment=new BlogComment();
 	blogcomment.setBlogcommentId(123);
-	blogcomment.setBlogId(111);
+	//blogcomment.setBlogId(111);
 	blogcomment.setBlogComment("this is my first comment");
 	blogcomment.setCommentDate(new java.util.Date());
-	blogcomment.setUserId(222);
-	blogcomment.setUserName("sakshi");
+//	blogcomment.setUserId(222);
+//	blogcomment.setUserName("sakshi");
 	blogcommentDao.createBlogcomment(blogcomment);
 	
 	assertTrue("problem in blogcomment creation",blogcommentDao.createBlogcomment(blogcomment));
@@ -48,11 +48,11 @@ public class BlogcommentTestCase {
 	public void editblogcomment()
 	{
 		BlogComment blogcomment=blogcommentDao.getBlogcomment(512);
-		blogcomment.setBlogId(412);
+	//	blogcomment.setBlogId(412);
 		blogcomment.setBlogComment("this is my second comment");
 		blogcomment.setCommentDate(new java.util.Date());
-		blogcomment.setUserId(232);
-		blogcomment.setUserName("diksha");
+		//blogcomment.setUserId(232);
+	//	blogcomment.setUserName("diksha");
 		
 		assertTrue("blogcomment edited",blogcommentDao.editBlogcomment(blogcomment));
 	}
@@ -60,7 +60,7 @@ public class BlogcommentTestCase {
 	@Test
 	public void getallblogcommentstest()
 	{
-		 List<BlogComment> listblogcomment=blogcommentDao.getAllBlogcomments();
+		 List<BlogComment> listblogcomment=blogcommentDao.getBlogcomments(121);
 		assertTrue("No approved blogs",listblogcomment.size()>0);
 	}
     @Ignore
