@@ -3,3 +3,16 @@ content of blog:-{{blog.blogContent}}<br>
 <p>blog details of approved blogs</p>
 {{blog.likes}} likes
 <a><span class="glyphicon glyphicon-thumbs-up" ng-class="isLiked?'liked':'default'" ng-click="updateLikes()"></span></a>
+<br><b>comments</b>
+<ul>
+<li  ng-repeat="blogcomment in blogcomments">
+{{blogcomment.blogComment}}
+<strong>By</strong>{{blogcomment.commentedBy.userName}}
+<strong>By</strong>{{blogcomment.commentDate|date:'medium'}}
+</li>
+</ul>
+
+<div>
+<textarea rows="3" cols="40" ng-model="blogcomment.blogComment"></textarea>
+<button type="submit"class="btn btn-primary"  ng-click="addComment()">Post Comment</button>
+</div>

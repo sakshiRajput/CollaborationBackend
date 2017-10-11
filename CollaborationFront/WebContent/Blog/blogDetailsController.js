@@ -44,4 +44,32 @@ app.controller('BlogDetailController',function($scope,BlogService,$location,$rou
 	$scope.showRejectionTxt=function(val){
 		$scope.isRejected=val
 	}
+	$scope.addComment=function(){
+		console.log($scope.blogComment)
+		$scope.blogcomment.blog=$scope.blog//blog prop in blogcommnt
+		console.log($scope.blogcomment)
+		BlogService.addComment($scope.blogcomment).then(function(response){
+			//getBlogComments()
+			alert('your comment is posted succesfully')
+			console.log(response.data)
+			console.log(response.status)
+			
+		},function(response){
+			console.log(response.status)
+			if(response.status==401)
+				$location.path('/login')
+				else
+					$location.path('/getblogbyid'+id)
+					
+		})
+	}
+	function getBlogComments(){
+		BlogService.getBlogComments(id).then(function(response){
+			$scope.blogcomments=response.data//list of blogcomments
+		},function(response){
+			if(response.status==401)
+				$location.path('/login')
+		})
+	}
+	getBlogComments()
 })

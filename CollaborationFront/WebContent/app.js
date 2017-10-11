@@ -58,5 +58,22 @@ app.run(function($rootScope,$cookieStore,UserService,$location){
 	{	
 			$rootScope.currentUser=$cookieStore.get('userDetails')
 			console.log($cookieStore.get('userDetails'));
+			$rootScope.logout = function(){
+				delete $rootScope.currentUser;
+				UserService.logout()
+				.then(function(response){
+					
+					$cookieStore.remove('userDetails');
+					$location.path('/login');
+				},function(response){
+					if(response.status==401)
+					{
+						console.log(response.message);
+						delete $rootScope.currentUser;
+						$cookieStore.remove('userDetails');
+						$location.path('/login');
+					}
+					})
+			}
 	}	
 })
