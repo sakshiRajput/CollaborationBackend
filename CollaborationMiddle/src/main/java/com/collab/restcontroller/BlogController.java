@@ -28,8 +28,7 @@ import com.collab.CollaborationBack.model.User;
 @RestController
 public class BlogController {
 	
-	@Autowired
-	BlogDao blogDao;
+	
 	
 	@Autowired
 	private UserService userService;
@@ -45,7 +44,7 @@ public class BlogController {
 	public ResponseEntity<ArrayList<Blog>> getallblogs()
 	{
 		ArrayList<Blog> listblogs=new ArrayList<Blog>();
-		listblogs=(ArrayList<Blog>)blogDao.getAllBlogs();
+		listblogs=(ArrayList<Blog>)blogService.getAllBlogs();
 		return new ResponseEntity<ArrayList<Blog>>(listblogs,HttpStatus.OK);
 		
 	}
@@ -79,7 +78,7 @@ public class BlogController {
 		User postedby=userService.getuser(userName);
 	    blog.setPostedBy(postedby);
 		try
-		{ blogDao.createBlog(blog);
+		{ blogService.createBlog(blog);
 		  return new ResponseEntity<Blog>(blog,HttpStatus.OK); 
 		}
 		catch(Exception e)
@@ -103,8 +102,8 @@ public class BlogController {
 	}
 	@PutMapping(value="/approveblog/{blogId}")
 	public ResponseEntity <String> approveblog(@PathVariable("blogId") int blogId)
-	{   Blog blog=blogDao.getBlogById(blogId);
-		if(blogDao.approveBlog(blog))
+	{   Blog blog=blogService.getBlogById(blogId);
+		if(blogService.approveBlog(blog))
 		{
 		return new ResponseEntity <String> ("blog approved",HttpStatus.OK);
 		}
@@ -118,7 +117,7 @@ public class BlogController {
 	@DeleteMapping("/deleteBlog/{blogId}")
 	public ResponseEntity<String> deleteBlog (@PathVariable("blogId")Integer blogId)
 	{
-		if(blogDao.deleteBlog(blogId))
+		if(blogService.deleteBlog(blogId))
 		{return new ResponseEntity<String> ("Blog Deleted",HttpStatus.OK);}
 		 else
 		 {return new ResponseEntity <String> ("problem in deleting",HttpStatus.NOT_ACCEPTABLE); }

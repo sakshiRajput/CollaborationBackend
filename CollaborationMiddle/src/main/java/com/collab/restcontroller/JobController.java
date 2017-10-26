@@ -1,6 +1,8 @@
 package com.collab.restcontroller;
 
-import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,47 +16,67 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.collab.CollaborationBack.Dao.JobDao;
+import com.collab.CollaborationBack.Service.JobService;
+import com.collab.CollaborationBack.model.Error;
 import com.collab.CollaborationBack.model.Job;
 
 @RestController
 public class JobController {
 	
-	@Autowired
-	JobDao jobDao;
 
+	@Autowired
+    private JobService jobService;
+	@Autowired
+	HttpSession session;
+	
 	@GetMapping(value="/jobs")
 	public ResponseEntity <String> testmethod()
 	{
 		return new ResponseEntity <String> ("job Test controller",HttpStatus.OK);
-		
 	}
 	
 	@GetMapping(value="/getalljobs")
-	public ResponseEntity<ArrayList<Job>> getalljobs()
+	public ResponseEntity<?> getalljobs(HttpSession session)
 	{
-		ArrayList<Job> listjobs=new ArrayList<Job>();
-		listjobs=(ArrayList<Job>)jobDao.getalljob();
-		return new ResponseEntity<ArrayList<Job>>(listjobs,HttpStatus.OK);
+		String username=(String)session.getAttribute("userName");
+		if(username==null)
+		{
+			Error error=new Error(6,"unauthorised access");
+			return new ResponseEntity<Error>(error,HttpStatus.UNAUTHORIZED);
+		}
+
+
+	    List<Job> listjobs=jobService.getalljob();
+		return new ResponseEntity<List<Job>>(listjobs,HttpStatus.OK);
 		
 	}
+	
 	@PostMapping(value="/addjob")
-	public ResponseEntity <String> createjob(@RequestBody Job job)
+	public ResponseEntity <?> createjob(@RequestBody Job job,HttpSession session)
 	{
+		String userName=(String) session.getAttribute("userName");
+	    System.out.println("user:-"+userName);
+		if(userName==null)
+		{
+			Error error=new Error(6,"unauthorised access");
+			return new ResponseEntity<Error>(error,HttpStatus.UNAUTHORIZED);
+		}
 		job.setPostDate(new java.util.Date());
-		job.setStatus("NA");
-		
-		
-		if(jobDao.addjob(job))
-		{  return new ResponseEntity <String> ("job added",HttpStatus.OK);}
-		else
-		{ return new ResponseEntity <String> ("problem in adding",HttpStatus.NOT_ACCEPTABLE);}
-	
+		//job.setStatus("NA");
+		try
+		{ jobService.addjob(job);
+		  return new ResponseEntity <Job> (job,HttpStatus.OK);
+		 }
+		catch(Exception e)
+		{  Error error=new Error(9,"unable to add blog");
+		   return new ResponseEntity<Error>(error,HttpStatus.INTERNAL_SERVER_ERROR);
+	  }
 	}
 	
-	@DeleteMapping("/deletejob/{Id}")
+	@DeleteMapping(value="/deletejob/{Id}")
 	public ResponseEntity<String> deletejob (@PathVariable("Id")Integer jobId)
 	{
-		if(jobDao.deletejob(jobId))
+		if(jobService.deletejob(jobId))
 		{return new ResponseEntity<String> ("job Deleted",HttpStatus.OK);}
 		 else
 		 {return new ResponseEntity <String> ("problem in deleting",HttpStatus.NOT_ACCEPTABLE); }
@@ -65,14 +87,29 @@ public class JobController {
 	@PutMapping(value="/editjob/{Id}")
 	public ResponseEntity<String> editjob (@PathVariable("Id")Integer jobId,@RequestBody Job job)
 	{
-		Job newjob=jobDao.getjobById(jobId);
+	Job newjob=jobService.getjobById(jobId);
 		newjob.setJobDesc(job.getJobDesc());
-		newjob.setJobProfile(job.getJobProfile());
-		newjob.setQualification(job.getQualification()); 
-		if(jobDao.updatejob(newjob))
-		 {return new ResponseEntity <String> ("job edited",HttpStatus.OK);}
+		//newjob.setJobProfile(job.getJobProfile());
+		//newjob.setQualification(job.getQualification()); 
+		if(jobService.updatejob(newjob))
+		 {  return new ResponseEntity <String> ("job edited",HttpStatus.OK);  }
 		 else
-		 {return new ResponseEntity <String> ("problem in editing",HttpStatus.NOT_ACCEPTABLE); }
+		 {
+			 return new ResponseEntity <String> ("problem in editing",HttpStatus.NOT_ACCEPTABLE); 
+		 }
 	}
-	
+	@GetMapping(value="/getjobbyid/{id}")
+	public ResponseEntity<?> getJobById(@PathVariable int id,HttpSession session)
+	{
+		String userName=(String) session.getAttribute("userName");
+	    if(userName==null)
+		{
+			Error error=new Error(6,"unauthorised access");
+			return new ResponseEntity<Error>(error,HttpStatus.UNAUTHORIZED);
+		}
+	   
+	    Job job=jobService.getjobById(id);
+	    return new ResponseEntity<Job>(job,HttpStatus.OK);
+		
+	}
 }
