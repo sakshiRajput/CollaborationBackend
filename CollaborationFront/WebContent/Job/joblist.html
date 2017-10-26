@@ -1,0 +1,32 @@
+<div ng-show="currentUser.role=='ADMIN'">
+	<B>list of jobs </B>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>jobTitle</th>
+				<th>posted on</th>
+				<th>Skills Required</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="job in jobs">
+				<td><a href="" ng-click="getJobDetails(job.jobId)">{{job.jobTitle}}</a></td>
+				<td>{{job.postDate|date:'medium'}}</td>
+				<td>{{job.skillsRequired}}</td>
+			</tr>
+		</tbody>
+	</table>
+
+</div>
+<div ng-show="showJobDetails" >
+Job Details
+<pre>
+JOBTITLE:{{job.jobTitle}}
+JOBDESCRIPTION:{{job.jobDesc}}
+SKILLS REQUIRED:{{job.skillsRequired}}
+SALARY:{{job.salary}}
+LOCATION:{{job.location}}
+COMPANY NAME:{{job.companyName}}
+POSTED ON:{{job.postDate|date:'medium'}}
+</pre>
+</div>

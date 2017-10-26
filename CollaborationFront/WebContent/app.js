@@ -47,7 +47,31 @@ app.config(function($routeProvider) {
         controller:'BlogDetailController'
     
     })
-   
+    .when('/addjob', {
+        templateUrl : 'Job/addjob.html',
+        controller:'JobController'
+    
+    })
+    .when('/getalljobs', {
+        templateUrl : 'Job/joblist.html',
+        controller:'JobController'
+    
+    })
+    .when('/getsuggestedusers', {
+        templateUrl : 'Friend/suggesteduser.html',
+        controller:'FriendController'
+    
+    })
+    .when('/friendlist', {
+        templateUrl : 'Friend/friendlist.html',
+        controller:'FriendController'
+    
+    })
+    .when('/getpendingrequest', {
+        templateUrl : 'Friend/pendingrequest.html',
+        controller:'FriendController'
+    
+    })
    .otherwise(
 	{  template:'<p>go to the corrent link..wrong address</p>'
 	});

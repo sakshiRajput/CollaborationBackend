@@ -1,0 +1,15 @@
+<table class="table table-striped">
+
+<tbody>
+<tr ng-repeat="user in suggestedUsers">
+<td>{{user.userName}}</td>
+<td>{{user.lastName}}</td>
+<td>{{user.emailId}}</td>
+<td>{{user.role}}</td>
+<td>{{user.isOnline}}</td>
+
+<td><a class="btn btn-primary" ng-click="sendFriendRequest(user.userName)"> Send friend request</a> </td>
+</tr>
+</tbody>
+
+</table>

@@ -7,8 +7,8 @@ content of blog:-{{blog.blogContent}}<br>
 <ul>
 <li  ng-repeat="blogcomment in blogcomments">
 {{blogcomment.blogComment}}
-<strong>By</strong>{{blogcomment.commentedBy.userName}}
-<strong>By</strong>{{blogcomment.commentDate|date:'medium'}}
+<strong>By </strong>{{blogcomment.commentedBy.userName}}
+<strong>On </strong>{{blogcomment.commentDate|date:'medium'}}
 </li>
 </ul>
 

@@ -17,7 +17,12 @@
 <script src="Blog/blogcontroller.js"></script>
 <script src="Blog/blogservice.js"></script>
 <script src="Blog/blogDetailsController.js"></script>
+<script src="Job/jobcontroller.js"></script>
+<script src="Job/jobservice.js"></script>
+<script src="Friend/friendservice.js"></script>
+<script src="Friend/friendcontroller.js"></script>
 ​<link rel="stylesheet" href="Css/like.css"></link>
+
 </head>
 <body ng-app="myApp">
 
@@ -37,7 +42,21 @@
         </ul>
       </li>
       <li><a href="#/edituser" ng-show="currentUser.userName">Edit profile</a></li>
-      
+        <li><a href="#/addjob" ng-show="currentUser.role=='ADMIN'">Add Job</a></li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Job <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#/addjob" ng-show="currentUser.role=='ADMIN'">Add Job</a></li>
+          <li><a href="#/getalljobs">Get all jobs</a></li>
+          <li><a href="#"></a></li>
+        </ul>
+      </li>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Friends<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#/getsuggestedusers" ng-show="currentUser.userName">Suggested User</a></li>
+          <li><a href="#/getpendingrequest">Pending Requests</a></li>
+          <li><a href="#/friendlist">List of Friends</a></li>
+        </ul>
+      </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="#/register" ng-hide="currentUser.userName"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
@@ -46,11 +65,26 @@
     </ul>
   </div>
 </nav>
-
-
+<!-- 
+<div class="sidenav">
+ <a href="#/">Home</a>
+  <a href="#">Services</a>
+  <a href="#/edituser" ng-show="currentUser.userName">Edit profile</a>
+  <a href="#/addjob" ng-show="currentUser.role=='ADMIN'">Add Job</a>KLI
+  <ul class="navbar-nav">
+   <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Blog <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#/addblog">Add blog</a></li>
+          <li><a href="#/getblogs">Get all blogs</a></li>
+          <li><a href="#">Page 1-3</a></li>
+        </ul>
+      </li></ul>
+     
+</div>
+-->
 ​<p>-------------------------------------------------------------------------------</p>
 <p ng-show="currentUser.userName">welcome {{currentUser.userName}}</p>
-<div ng-view ></div>
+<div class="main" ng-view></div>
 ​</body>
 
 </html>
