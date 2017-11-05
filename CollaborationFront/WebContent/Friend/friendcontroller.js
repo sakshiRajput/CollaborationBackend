@@ -24,14 +24,18 @@ app.controller('FriendController',function($scope,FriendService,$location){
 	function listOfFriends()
 	{
 		FriendService.listOfFriends().then(function(response){
+			alert('List of Friends')
 			$scope.listOfFriends=response.data;
 		},function(response){
-			
+			if(response.status=401)
+				$location.path('/login')
+		
 		})
 	}
 	
 	$scope.sendFriendRequest=function(toId){
 		FriendService.sendFriendRequest(toId).then(function(response){
+			alert('Friend Request send!!!')
 			listOfSuggestedUsers()
 			$location.path('/getsuggestedusers')
 		},function(response){
@@ -45,10 +49,12 @@ app.controller('FriendController',function($scope,FriendService,$location){
 			console.log(request.status)
 		request.status=statusValue
 		console.log(request.status)
-		FriendService.updatePendingRequest(toId).then(function(response){
+		FriendService.updatePendingRequest(request,statusValue).then(function(response){
+			alert('List of Pending Request')
 			pendingRequests()
 			$location.path('/pendingrequests')
 		},function(response){
+			alert('error in pending request')
 			if(response.status=401)
 				$location.path('/login')
 		})

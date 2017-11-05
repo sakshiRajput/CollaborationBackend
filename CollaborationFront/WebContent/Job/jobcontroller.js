@@ -81,3 +81,4 @@ app.controller('JobController',function($scope,JobService,$location){
 	}
 	getalljobs()
 })
+

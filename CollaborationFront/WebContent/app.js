@@ -72,7 +72,12 @@ app.config(function($routeProvider) {
         controller:'FriendController'
     
     })
+    .when('/profilepic',{
+		templateUrl:'ProfilePicture/uploadpicture.html',
+		 
+	})
    .otherwise(
+		   
 	{  template:'<p>go to the corrent link..wrong address</p>'
 	});
 })

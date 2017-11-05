@@ -21,7 +21,7 @@
 <script src="Job/jobservice.js"></script>
 <script src="Friend/friendservice.js"></script>
 <script src="Friend/friendcontroller.js"></script>
-​<link rel="stylesheet" href="Css/like.css"></link>
+<link rel="stylesheet" href="Css/like.css"></link>
 
 </head>
 <body ng-app="myApp">
@@ -59,9 +59,14 @@
       </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
+      <li><a href="#/profilepic" ng-show="currentUser.userName">
+                    <img ng-src="http://localhost/CollaborationMiddle/getprofilepic/{{currentUser.userName}}" alt="upload Picture" width="30px" height="30px" class="img-rounded">
+                    </a></li>
+      
       <li><a href="#/register" ng-hide="currentUser.userName"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
       <li><a href="#/login" ng-hide="currentUser.userName"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
       <li><a href="#/logout" ng-click="logout()" ng-show="currentUser.userName"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+<!--   <li><a href="#/profilepic" ng-show="currentUser.userName" ><img class="img-responsive" ng-src="http://localhost/CollaborationFront/resources/images/{{currentUser.userName}}" alt="Upload "style="width:106px;height:106px;"></a></li> -->
     </ul>
   </div>
 </nav>
