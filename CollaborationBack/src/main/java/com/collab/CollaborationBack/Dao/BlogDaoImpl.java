@@ -6,7 +6,7 @@ import javax.transaction.Transactional;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
+import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -87,7 +87,7 @@ public class BlogDaoImpl implements BlogDao{
 		@SuppressWarnings("rawtypes")
 		Query query=session.createQuery("from Blog where blogId=?");
 		query.setParameter(0, blogId);
-        Blog bloglist=(Blog)query.getSingleResult();
+        Blog bloglist=(Blog)query.uniqueResult();
 		return bloglist;
 		}
 		catch(Exception e)
@@ -125,7 +125,7 @@ public class BlogDaoImpl implements BlogDao{
 		Session session=sessionFactory.getCurrentSession();
 		Query query=session.createQuery("from Blog where status=?");
 		query.setParameter(0, status);
-		List<Blog> listblog=query.getResultList();
+		List<Blog> listblog=query.list();
 		return listblog;
 	}
 

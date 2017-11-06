@@ -6,7 +6,7 @@ import javax.transaction.Transactional;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
+import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -68,7 +68,7 @@ public class ForumCommentDaoImpl implements ForumCommentDao {
 			Session session=sessionFactory.getCurrentSession();
 			@SuppressWarnings("rawtypes")
 			Query query=session.createQuery("from ForumComment where forumcommentId="+forumcommentId);
-			ForumComment forumcommentlist=(ForumComment)query.getSingleResult();
+			ForumComment forumcommentlist=(ForumComment)query.uniqueResult();
 			return forumcommentlist;
 			}
 			catch(Exception e)

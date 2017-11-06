@@ -6,13 +6,13 @@ import javax.transaction.Transactional;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
+import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 
 import com.collab.CollaborationBack.model.BlogComment;
-
+@Transactional
 @Repository("blogcommentDao")
 public class BlogcommentDaoImpl implements BlogcommentDao{
 
@@ -78,7 +78,7 @@ public class BlogcommentDaoImpl implements BlogcommentDao{
 			Session session=sessionFactory.getCurrentSession();
 			Query query=session.createQuery("from BlogComment where blogcommentId=?");
 			query.setParameter(0, blogcommentId);
-			BlogComment blogcommentlist=(BlogComment)query.getSingleResult();
+			BlogComment blogcommentlist=(BlogComment)query.uniqueResult();
 			return blogcommentlist;
 			}
 			catch(Exception e)

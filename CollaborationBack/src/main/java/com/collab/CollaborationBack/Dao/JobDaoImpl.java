@@ -6,7 +6,7 @@ import javax.transaction.Transactional;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
+import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -80,8 +80,7 @@ public class JobDaoImpl implements JobDao{
 			Session session=sessionFactory.getCurrentSession();
 			Query query=session.createQuery("from Job where jobId=?");
 			query.setParameter(0, jobId);
-			Job joblist=(Job)query.getSingleResult();
-			//session.close();
+			Job joblist=(Job)query.uniqueResult();
 			return joblist;
 			}
 			catch(Exception e)
