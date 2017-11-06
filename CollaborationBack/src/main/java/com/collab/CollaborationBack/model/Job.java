@@ -3,6 +3,8 @@ package com.collab.CollaborationBack.model;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -13,11 +15,14 @@ import org.springframework.stereotype.Component;
 @Table(name="Jobtable")
 public class Job {
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer jobId;
 	private String jobDesc;
-	private String jobProfile;
-	private String qualification;
-	private String status;
+	private String jobTitle;
+	private String skillsRequired;
+	private String salary;
+	private String location;
+	private String companyName;
 	private Date postDate;
 	public Integer getJobId() {
 		return jobId;
@@ -31,23 +36,35 @@ public class Job {
 	public void setJobDesc(String jobDesc) {
 		this.jobDesc = jobDesc;
 	}
-	public String getJobProfile() {
-		return jobProfile;
+	public String getJobTitle() {
+		return jobTitle;
 	}
-	public void setJobProfile(String jobProfile) {
-		this.jobProfile = jobProfile;
+	public void setJobTitle(String jobTitle) {
+		this.jobTitle = jobTitle;
 	}
-	public String getQualification() {
-		return qualification;
+	public String getSkillsRequired() {
+		return skillsRequired;
 	}
-	public void setQualification(String qualification) {
-		this.qualification = qualification;
+	public void setSkillsRequired(String skillsRequired) {
+		this.skillsRequired = skillsRequired;
 	}
-	public String getStatus() {
-		return status;
+	public String getSalary() {
+		return salary;
 	}
-	public void setStatus(String status) {
-		this.status = status;
+	public void setSalary(String salary) {
+		this.salary = salary;
+	}
+	public String getLocation() {
+		return location;
+	}
+	public void setLocation(String location) {
+		this.location = location;
+	}
+	public String getCompanyName() {
+		return companyName;
+	}
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
 	}
 	public Date getPostDate() {
 		return postDate;
@@ -55,5 +72,5 @@ public class Job {
 	public void setPostDate(Date postDate) {
 		this.postDate = postDate;
 	}
-
+	
 }
