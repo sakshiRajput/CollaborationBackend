@@ -66,7 +66,7 @@ public class FriendController {
 		}
 		Friend friend = new Friend();
 		friend.setFromId(userName);;
-		friend.setToId(toId);;
+		friend.setToId(toId);
 		friend.setStatus('P');
 		friendService.createfriend(friend);;
 		return new ResponseEntity<Friend>(friend,HttpStatus.OK);
