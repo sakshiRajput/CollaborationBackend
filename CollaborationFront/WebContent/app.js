@@ -73,8 +73,12 @@ app.config(function($routeProvider) {
     
     })
     .when('/profilepic',{
-		templateUrl:'ProfilePicture/uploadpicture.html',
+		templateUrl:'ProfilePicture/uploadpicture.html'
 		 
+	})
+	.when('/chat',{
+		templateUrl:'Chat/chat.html',
+		controller:'ChatController'
 	})
    .otherwise(
 		   
