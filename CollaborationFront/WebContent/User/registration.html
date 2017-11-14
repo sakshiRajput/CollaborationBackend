@@ -1,72 +1,84 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
-<title>Registration</title>
-
-</head>
-<body>
-
-
-           <h1>Registration</h1>	  
-<form aligh="center"> 
-	<div class="row input-container" >
-         	<div class="col-xs-12">
-				<div class="styled-input wide">
-					<input type="text" ng-model="user.userName" required />
-					<span style="color:red" ng-if="error.code==2">{{error.message}}</span>
-					<label>UserName </label>
-				</div>
-			</div>
-			<div class="col-xs-12">
-				<div class="styled-input wide">
-					<input type="email" ng-model="user.emailId" required />
-					<span style="color:red" ng-if="error.code==3">{{error.message}}</span>
-					<label>Email</label> 
-				</div>
-			</div>
-			<div class="col-md-6 col-sm-12">
-				<div class="styled-input ">
-					<input type="text" ng-model="user.firstName"required />
-					
-					<label>First Name</label> 
-				</div>
-			</div>
-			<div class="col-md-6 col-sm-12">
-				<div class="styled-input" >
-					<input type="text" ng-model="user.lastName" required />
-					<label>Last Name</label> 
-				</div>
-			</div>
-			<div class="col-xs-12">
-				<div class="styled-input wide">
-					<input type="password" ng-model="user.password" required />
-					<label>Password  </label>
-				</div>
-			</div>
-			<div class="col-xs-12">
-			 <div class="styled-input wide">
-                    <input type="text" ng-model="user.role" required />
-                    <label>Role  </label>
-             </div>
-             
-          
-			</div>
-			<div class="col-xs-12">
-				
-				<input type="submit" value="Register" ng-click="registerUser()" class="form-control"/>
-			</div>
+<div   class="page-header">
+<h1 align='center'>Join Collaboration</h1>
+<p class="lead" align='center'> The best way to give exposer to your thoughts and knowledge</p>
+</div>
+<div class="container">
+	<div class="row">
+        <div class="col-md-9">
+            <form>
+            <fieldset style="border: thin solid #ccc;   border-radius: 4px;  padding: 20px;  padding-left: 40px;  background: #fbfbfb;">
 			
+			
+			<div class="form-group">
+                <label for="username">User name:  <small>This will be your login user name</small> </label> 
+                    <input class="form-control" type="text" name="username"  ng-model="user.userName"  placeholder="minimum 6 letters" required />  
+                        <div id="errLast"></div>
+            </div>
+			
+           
+
+            <div class="form-group"> 	 
+                <label for="firstname"> First name: </label>
+                    <input class="form-control" type="text" name="firstname" ng-model="user.firstName"  required /> 
+                        <div id="errFirst"></div>    
+            </div>
+
+            <div class="form-group">
+                <label for="lastname"> Last name: </label> 
+                    <input class="form-control" type="text" name="lastname"ng-model="user.lastName"  placeholder="hyphen or single quote OK" required />  
+                        <div id="errLast"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="email"> Email Address: </label> 
+                    <input class="form-control" required type="text" name="email" ng-model="user.emailId" required  />   
+                        <div class="status" id="status"></div>
+            </div>
+			
+			<div class="form-group">
+                <label for="username">Role:  </label> <br>
+					<input type="radio"  value="Student" ng-model="user.role" checked> Student<br>
+					<input type="radio"  value="Employee" ng-model="user.role"> Employee<br>
+					<input type="radio"  value="Alumini" ng-model="user.role"> Alumini   
+                    
+            </div>
+
+           
+
+            <div class="form-group">
+                <label for="password"> Password: </label>
+                    <input required name="password" type="password" class="form-control inputpass" minlength="4" maxlength="16"  ng-model="user.password" /> </p>
+
+                
+            </div>
+
+           
+
+            <div class="form-group">
+                <input class="btn btn-success" type="submit" name="submit_reg" ng-click="registerUser()" value="Create an account">
+            </div>
+                      
+                      <h5>Be sure to check your spam folders. </h5>
+ 
+
+            </fieldset>
+            </form><!-- ends register form -->
+
+
+        </div><!-- ends col-6 -->
+   
+            <div class="col-md-3">
+               <div>
+           		 <ul class="list-group">
+					<li class="list-group-item"><strong>You'll Love Collaboration</strong></li>
+					<li class="list-group-item">unlimited blogs<br>unlimited forums</li>
+					<li class="list-group-item"><i class="fa fa-check" aria-hidden="true"></i>xyz<br>
+					<i class="fa fa-check" aria-hidden="true"></i>abc<br>
+					<i class="fa fa-check" aria-hidden="true"></i>pqr</li>
+					
+				</ul>
+			  </div>
+            </div>
+
 	</div>
-</form>
-
-
-</body>
-</html>
+</div>

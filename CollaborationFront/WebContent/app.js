@@ -80,6 +80,10 @@ app.config(function($routeProvider) {
 		templateUrl:'Chat/chat.html',
 		controller:'ChatController'
 	})
+	.when('/myprofile',{
+		templateUrl:'User/profile.html',
+			controller:'UserController'
+	})
    .otherwise(
 		   
 	{  template:'<p>go to the corrent link..wrong address</p>'

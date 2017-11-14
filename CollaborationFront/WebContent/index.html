@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 <script src="app.js"></script>
 <script src="User/usercontroller.js"></script>
 <script src="User/userservice.js"></script>
@@ -28,65 +29,156 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js" type="text/javascript"></script>
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.3/lodash.js" type="text/javascript"></script>
   <link	href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700" rel="stylesheet" type="text/css" />
-
+<link rel="stylesheet" href="Css/index.css"></link>
+<link rel="stylesheet" href="Css/navbar.css"></link>
 </head>
 <body ng-app="myApp">
 
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-    
-      <a class="navbar-brand" href="#">COLLABORATION</a>
-    </div>
-    <ul class="nav navbar-nav">
-      <li class="active"><a href="#/">Home</a></li>
-      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Blog <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="#/addblog">Add blog</a></li>
-          <li><a href="#/getblogs">Get all blogs</a></li>
-          <li><a href="#">Page 1-3</a></li>
-        </ul>
-      </li>
-      <li><a href="#/edituser" ng-show="currentUser.userName">Edit profile</a></li>
-        <li><a href="#/addjob" ng-show="currentUser.role=='ADMIN'">Add Job</a></li>
-        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Job <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="#/addjob" ng-show="currentUser.role=='ADMIN'">Add Job</a></li>
-          <li><a href="#/getalljobs">Get all jobs</a></li>
-          <li><a href="#"></a></li>
-        </ul>
-      </li>
-      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Friends<span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="#/getsuggestedusers" ng-show="currentUser.userName">Suggested User</a></li>
-          <li><a href="#/getpendingrequest">Pending Requests</a></li>
-          <li><a href="#/friendlist">List of Friends</a></li>
-        </ul>
-      </li>
-      <li><a href="#/chat" ng-show="currentUser.userName">Chat</a></li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <li><a href="#/profilepic" ng-show="currentUser.userName">
-                    <img ng-src="http://localhost/CollaborationMiddle/getprofilepic/{{currentUser.userName}}" alt="upload Picture" width="30px" height="30px" class="img-rounded">
-                    </a></li>
-      
-      <li><a href="#/register" ng-hide="currentUser.userName"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-      <li><a href="#/login" ng-hide="currentUser.userName"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      <li><a href="#/logout" ng-click="logout()" ng-show="currentUser.userName"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-<!--   <li><a href="#/profilepic" ng-show="currentUser.userName" ><img class="img-responsive" ng-src="http://localhost/CollaborationFront/resources/images/{{currentUser.userName}}" alt="Upload "style="width:106px;height:106px;"></a></li> -->
-    </ul>
-  </div>
-</nav>
+
+<!--
 
 -->
-​<p>-------------------------------------------------------------------------------</p>
-<p ng-show="currentUser.userName">welcome {{currentUser.userName}}</p>
-  
-  <div class="col-md-9" ng-view></div>
-   
-		
+<div id="top-nav" class="navbar navbar-inverse navbar-static-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><i class="fa fa-handshake-o" aria-hidden="true"></i> Collaboration</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#"><i class="fa fa-user-circle"></i> {{currentUser.role}} <span class="caret"></span></a>
+                    <ul id="g-account-menu" class="dropdown-menu" role="menu">
+                        <li><a href="#/myprofile"><i class="fa fa-user-secret"></i> My Profile</a></li>
+                    </ul>
+                </li>
+				<li ng-hide="currentUser.userName"><a href="#/login"><i class="fa fa-sign-in"></i> Sign in</a></li>
+				<li ng-hide="currentUser.userName"><a href="#/register"><i class="fa fa-sign-out"></i> Sign up</a></li>
+                <li ng-show="currentUser.userName" ng-click="logout()"><a href="#/logout"><i class="fa fa-sign-out"></i> Logout</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- /container -->
+</div>
+	  <!-- close header-->
 
-​</body>
+<div ng-hide="currentUser.userName" ng-view ></div>
+
+<div class="container" ng-show="currentUser.userName">
+    <div class="row profile">
+		<div class="col-md-3">
+			<div class="profile-sidebar">
+				<!-- SIDEBAR USERPIC -->
+				<div class="profile-userpic">
+					<img align='center' ng-src="http://localhost/CollaborationMiddle/getprofilepic/{{currentUser.userName}}" class="img-responsive" alt="">
+					<!--- //ng-src="http://localhost/CollaborationMiddle/getprofilepic/{{currentUser.userName}}  -->
+				</div>
+				<!-- END SIDEBAR USERPIC -->
+				<!-- SIDEBAR USER TITLE -->
+				<div class="profile-usertitle">
+					<div class="profile-usertitle-name">
+						{{currentUser.firstName}}&nbsp;{{currentUser.lastName}}
+					</div>
+				<!--	<div class="profile-usertitle-job">
+						Developer
+					</div> -->
+				</div>
+				<!-- END SIDEBAR USER TITLE -->
+				<!-- SIDEBAR BUTTONS -->
+				<div class="profile-userbuttons">
+					
+					<a href="#/profilepic" class="btn btn-success btn-sm" ng-show="currentUser.userName"> Change Picture</a>
+					<a href="#/edituser" ng-show="currentUser.userName" class="btn btn-danger btn-sm">Edit Profile</a>
+					
+				</div>
+				<!-- END SIDEBAR BUTTONS -->
+				<!-- SIDEBAR MENU -->
+				<div class="profile-usermenu">
+					<ul class="nav">
+						<li >
+							<a href="#">
+							<i class="glyphicon glyphicon-home"></i>
+							Home </a>
+						</li>
+						<li>
+							<a href="#/chat" ng-show="currentUser.userName">
+							<i class="glyphicon glyphicon-user"></i>
+							Chat </a>
+						</li>
+						
+						<li class="dropdown">
+							<a data-toggle="dropdown" aria-expanded="false">
+							<span class="glyphicon glyphicon-th"></span>&nbsp; &nbsp; Blog
+							<i class="fa fa-fw fa-angle-down pull-right"></i></a>
+								<ul class="dropdown-menu dropdown-menu-right" role="menu">
+									<li><a href="#/addblog">Add Blog</a></li>
+									<li><a href="#/getblogs">Get All Blogs</a></li>
+									
+								</ul>
+						</li>
+						
+						<li class="dropdown">
+							<a data-toggle="dropdown" aria-expanded="false" ng-show="currentUser.role=='ADMIN'">
+							<span class="glyphicon glyphicon-tasks"></span>&nbsp; &nbsp; Job
+							<i class="fa fa-fw fa-angle-down pull-right"></i></a>
+								<ul class="dropdown-menu dropdown-menu-right" role="menu">
+									<li><a href="#/addjob">Add Job</a></li>
+									<li><a href="#/getalljobs">Get All Jobs</a></li>
+									
+								</ul>
+						</li>
+                       
+					   <li class="dropdown">
+							<a data-toggle="dropdown" aria-expanded="false"  ng-show="currentUser.userName">
+						<i class="fa fa-fw fa-user-plus"></i> Friends
+							<i class="fa fa-fw fa-angle-down pull-right"></i></a>
+								<ul class="dropdown-menu dropdown-menu-right" role="menu">
+									<li><a href="#/getsuggestedusers">Suggested Users</a></li>
+									<li><a href="#/getpendingrequest">Pending Requests</a></li>
+									<li><a href="#/friendlist">List Of Friends</a></li>
+								</ul>
+						</li>
+
+						<li>
+							<a href="#" target="_blank">
+							<i class="glyphicon glyphicon-ok"></i>
+							Tasks </a>
+						</li>
+						<li>
+							<a href="#">
+							<i class="glyphicon glyphicon-flag"></i>
+							Help </a>
+						</li>
+						
+						<div class="list-group">
+								<a class="list-group-item" href="#"><i class="fa fa-home fa-fw" aria-hidden="true"></i>&nbsp; Home</a>
+  
+						</div>
+
+					</ul>
+				</div>
+				<!-- END MENU -->
+			</div>
+		</div>
+		<div class="col-md-9">
+            <div class="profile-content" ng-view>
+			   Some user related content goes here...
+            </div>
+		</div>
+		
+	</div>
+</div>
+<center>
+Made by <strong>Sakshi Rajput</strong>
+</center>
+<br>
+<br>
+
+</body>
 
 </html>
 ​
