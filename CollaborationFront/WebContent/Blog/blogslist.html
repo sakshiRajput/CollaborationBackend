@@ -1,8 +1,22 @@
 <div ng-show="currentUser.role=='ADMIN'">
+	<fieldset style="border: thin solid #ccc;   border-radius: 4px;  padding: 20px;  padding-left: 40px;">
+	<div class="box-header">
+                  <h3 class="box-title">List Of Blogs To Be Approved:</h3>
+                  <div class="box-tools">
+                    <ul class="pagination pagination-sm no-margin pull-right">
+                      <li><a href="#">&laquo;</a></li>
+                      <li><a href="#">1</a></li>
+                      <li><a href="#">2</a></li>
+                      <li><a href="#">3</a></li>
+                      <li><a href="#">&raquo;</a></li>
+                    </ul>
+                  </div>
+      </div>
 	<B>list of blogs waiting for approval</B>
-	<table>
+	<table class="table table-striped">
 		<thead>
 			<tr>
+			    <th>#</th>
 				<th>BlogTitle</th>
 				<th>Author</th>
 				<th>posted on</th>
@@ -10,31 +24,49 @@
 		</thead>
 		<tbody>
 			<tr ng-repeat="blog in listOfBlogsWaitingForApproval">
+			    <td>{{blog.blogId}}</td>
 				<td><a href="#/getapproveform/{{blog.blogId}}">{{blog.blogName}}</a></td>
 				<td>{{blog.postedBy.userName}}</td>
 				<td>{{blog.createDate|date:'medium'}}</td>
 			</tr>
 		</tbody>
 	</table>
-
+</fieldset>
 </div>
 <div>
-	<B>list of approved blogs</B>
-	<table>
+<fieldset style="border: thin solid #ccc;   border-radius: 4px;  padding: 20px;  padding-left: 40px;">
+	  <div class="box-header">
+                  <h3 class="box-title">List Of Blogs:</h3>
+                  <div class="box-tools">
+                    <ul class="pagination pagination-sm no-margin pull-right">
+                      <li><a href="#">&laquo;</a></li>
+                      <li><a href="#">1</a></li>
+                      <li><a href="#">2</a></li>
+                      <li><a href="#">3</a></li>
+                      <li><a href="#">&raquo;</a></li>
+                    </ul>
+                  </div>
+      </div>
+	
+	<table  class="table table-striped">
 		<thead>
 			<tr>
-				<th>BlogTitle</th>
+				 <th>#</th>
+				<th>Blog Title</th>
 				<th>Author</th>
-				<th>posted on</th>
+				<th>Posted on</th>
+				<th>Likes</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr ng-repeat="blog in listOfBlogsApproved">
+				 <td>{{blog.blogId}}</td>
 				<td><a href="#/getblogbyid/{{blog.blogId}}">{{blog.blogName}}</a></td>
 				<td>{{blog.postedBy.userName}}</td>
 				<td>{{blog.createDate|date:'medium'}}</td>
+				<th>{{blog.likes}}</th>
 			</tr>
 		</tbody>
 	</table>
-
+</fieldset>
 </div>
