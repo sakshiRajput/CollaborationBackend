@@ -44,20 +44,20 @@ app.controller('FriendController',function($scope,FriendService,$location){
 		})
 	}
 	
-	$scope.updatePendingRequest=function(request,statusValue){
-		console.log(request)
-			console.log(request.status)
-		request.status=statusValue
+	$scope.updatePendingRequest = function(request,statusValue){
+		console.log(statusValue)
+		request.status=statusValue;
 		console.log(request.status)
-		FriendService.updatePendingRequest(request,statusValue).then(function(response){
-			alert('List of Pending Request')
+		FriendService.updatePendingRequest(request).then(function(response){
 			pendingRequests()
-			$location.path('/pendingrequests')
+			console.log(request.status)
+			listOfFriends()
+			$location.path('/friendlist')
+		
 		},function(response){
-			alert('error in pending request')
-			if(response.status=401)
-				$location.path('/login')
+			
 		})
+	
 	}
 	
 	listOfSuggestedUsers()

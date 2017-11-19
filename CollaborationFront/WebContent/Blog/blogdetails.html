@@ -1,20 +1,32 @@
-Name of blog-{{blog.blogName}}<br>
-content of blog:-{{blog.blogContent}}<br>
-<p>blog details of approved blogs</p>
-{{blog.likes}} likes
-<a><span class="glyphicon glyphicon-thumbs-up" ng-class="isLiked?'liked':'default'" ng-click="updateLikes()"></span></a>
 
+<a href="#/getblogs" class="btn btn-default" style="border-radius: 25px; border: 2px solid #a1a1a1">Back</a><br>
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css"/>
+<div class="col-sm-14">
+  <div class="well">
+      <div class="media">
+      	<a class="pull-left" href="#">
+    		<img class="img-responsive" src=" ng-src="http://localhost/CollaborationFront/resources/images/{{blog.postedBy.userName}}">
+  		</a>
+  		<div class="media-body">
+    		<h4 class="media-heading">{{blog.blogName}}</h4>
+          <p class="text-right">By {{blog.postedBy.userName}}</p>
+          <p>{{blog.blogContent}}</p>
+          <ul class="list-inline list-unstyled">
+  			<li><span><i class="glyphicon glyphicon-calendar"></i> {{blog.createDate}} </span></li>
+            <li>|</li>
+            <span><i class="glyphicon glyphicon-comment"></i> 2 comments</span>
+            <li>|</li>
+            {{blog.likes}} likes
+            <a><span class="glyphicon glyphicon-thumbs-up" ng-class="isLiked?'liked':'default'" ng-click="updateLikes()"></span></a>
+        	</ul>
+       </div>
+    </div>
+ </div>
 
+</div>
 <!--
 
-<br><b>comments</b>
-<ul>
-<li  ng-repeat="blogcomment in blogcomments">
-{{blogcomment.blogComment}}
-<strong>By </strong>{{blogcomment.commentedBy.userName}}
-<strong>On </strong>{{blogcomment.commentDate|date:'medium'}}
-</li>
-</ul>
+
 -->
 
 <!--new format   background-color: green;
@@ -24,7 +36,7 @@ content of blog:-{{blog.blogContent}}<br>
 <link href="Css/commentcss.css" rel="stylesheet">
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 	<div class="row">
-	<!-- Contenedor Principal -->
+	
     <div class="comments-container">
 		<h1>Comments </h1>
 
@@ -32,7 +44,7 @@ content of blog:-{{blog.blogContent}}<br>
 			<li ng-repeat="blogcomment in blogcomments">
 				<div class="comment-main-level">
 					<!-- Avatar -->
-					<div class="comment-avatar"><img ng-src="http://localhost/CollaborationMiddle/getprofilepic/{{blogcomment.commentedBy.userName}}" alt=""></div>
+					<div class="comment-avatar"><img ng-src="http://localhost/CollaborationFront/resources/images/{{blogcomment.commentedBy.userName}}" alt="update pic"></div>
 					<!-- Contenedor del Comentario -->
 					<div class="comment-box">
 						<div class="comment-head">
@@ -45,7 +57,7 @@ content of blog:-{{blog.blogContent}}<br>
 						</div>
 					</div>
 				</div>
-				<!-- Respuestas de los comentarios -->
+			
 				
 			</li>
 

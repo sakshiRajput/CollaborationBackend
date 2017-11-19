@@ -1,10 +1,10 @@
-<div ng-if="pendingRequest.length==0"><b>No Pending Requests</b></div>
+<div ng-if="pendingRequests.length==0"><b>No Pending Requests</b></div>
 <table class="table table-striped">
 <tbody>
 <tr ng-repeat="request in pendingRequests">
 <td>{{request.fromId}}</td>
-<td><a class="btn btn-primary" ng-click="updatePendingRequest(request,'A')"> Accept</a> </td>
-<td><a class="btn btn-primary" ng-click="updatePendingRequest(request,'D')"> Delete</a> </td>
+<td><a class="btn btn-primary"  ng-click="updatePendingRequest(request,'A')"> <i class="fa fa-check"></i> Accept</a> </td>
+<td><a class="btn btn-primary"  ng-click="updatePendingRequest(request,'D')"><i class="fa fa-remove"></i> Delete</a> </td>
 </tr>
 </tbody>
 

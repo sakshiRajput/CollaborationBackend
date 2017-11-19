@@ -13,22 +13,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <script src="app.js"></script>
-<script src="User/usercontroller.js"></script>
-<script src="User/userservice.js"></script>
-<script src="Blog/blogcontroller.js"></script>
-<script src="Blog/blogservice.js"></script>
-<script src="Blog/blogDetailsController.js"></script>
-<script src="Job/jobcontroller.js"></script>
-<script src="Job/jobservice.js"></script>
-<script src="Friend/friendservice.js"></script>
-<script src="Friend/friendcontroller.js"></script>
-<link rel="stylesheet" href="Css/like.css"></link>
-<script src="Chat/chatservice.js"></script>
-<script src="Chat/chatcontroller.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js" type="text/javascript"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js" type="text/javascript"></script>
-<script	src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.3/lodash.js" type="text/javascript"></script>
-  <link	href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700" rel="stylesheet" type="text/css" />
+
 <link rel="stylesheet" href="Css/index.css"></link>
 <link rel="stylesheet" href="Css/navbar.css"></link>
 </head>
@@ -52,11 +37,12 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#"><i class="fa fa-user-circle"></i> {{currentUser.role}} <span class="caret"></span></a>
+                    <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#" ng-show="currentUser.userName"><i class="fa fa-user-circle"></i> {{currentUser.role}} <span class="caret"></span></a>
                     <ul id="g-account-menu" class="dropdown-menu" role="menu">
                         <li><a href="#/myprofile"><i class="fa fa-user-secret"></i> My Profile</a></li>
                     </ul>
                 </li>
+                <li ng-show="currentUser.userName"><a href="#/chat"><i class="fa fa-comments"></i> Chat</a></li>
 				<li ng-hide="currentUser.userName"><a href="#/login"><i class="fa fa-sign-in"></i> Sign in</a></li>
 				<li ng-hide="currentUser.userName"><a href="#/register"><i class="fa fa-sign-out"></i> Sign up</a></li>
                 <li ng-show="currentUser.userName" ng-click="logout()"><a href="#/logout"><i class="fa fa-sign-out"></i> Logout</a></li>
@@ -67,7 +53,20 @@
 </div>
 	  <!-- close header-->
 
-<div ng-hide="currentUser.userName" ng-view ></div>
+<div ng-hide="currentUser.userName" ng-view >
+<div class="col-sm-8">
+<h1 ><i class="fa fa-handshake-o" aria-hidden="true"></i> Digital Collaboration Platform</h1>
+        <fieldset style="border: thin solid #ccc;   border-radius: 4px;  padding: 20px;  padding-left: 40px;  background: #fbfbfb;">
+        <p>
+          Collaboration is a all-in-one open-source digital collaboration platform that provides knowledge, document and content management, social engagement, and project collaboration tools integrated into your business’s applications.
+        </p>
+		<i class="fa fa-hashtag" aria-hidden="true"></i> Give exposure to your thoughts.<br><br>
+		<i class="fa fa-hashtag" aria-hidden="true"></i> Create your own Blogs & Forums.<br><br>
+		<i class="fa fa-cog" aria-hidden="true"></i> Make friends from all across the world.<br><br>
+		<i class="fa fa-comments" aria-hidden="true"></i> Team Messaging.<br><br>
+      </fieldset>
+</div>
+</div>
 
 <div class="container" ng-show="currentUser.userName">
     <div class="row profile">
@@ -101,16 +100,10 @@
 				<div class="profile-usermenu">
 					<ul class="nav">
 						<li >
-							<a href="#">
+							<a href="#/home">
 							<i class="glyphicon glyphicon-home"></i>
 							Home </a>
 						</li>
-						<li>
-							<a href="#/chat" ng-show="currentUser.userName">
-							<i class="glyphicon glyphicon-user"></i>
-							Chat </a>
-						</li>
-						
 						<li class="dropdown">
 							<a data-toggle="dropdown" aria-expanded="false">
 							<span class="glyphicon glyphicon-th"></span>&nbsp; &nbsp; Blog
@@ -138,22 +131,19 @@
 						<i class="fa fa-fw fa-user-plus"></i> Friends
 							<i class="fa fa-fw fa-angle-down pull-right"></i></a>
 								<ul class="dropdown-menu dropdown-menu-right" role="menu">
+									<li><a href="#/friendlist">List Of Friends</a></li>
 									<li><a href="#/getsuggestedusers">Suggested Users</a></li>
 									<li><a href="#/getpendingrequest">Pending Requests</a></li>
-									<li><a href="#/friendlist">List Of Friends</a></li>
+									
 								</ul>
 						</li>
 
 						<li>
-							<a href="#" target="_blank">
-							<i class="glyphicon glyphicon-ok"></i>
-							Tasks </a>
+							<a href="#" ng-show="currentUser.userName">
+							<i class="glyphicon glyphicon-user"></i>
+							Chat </a>
 						</li>
-						<li>
-							<a href="#">
-							<i class="glyphicon glyphicon-flag"></i>
-							Help </a>
-						</li>
+						
 						
 						<div class="list-group">
 								<a class="list-group-item" href="#"><i class="fa fa-home fa-fw" aria-hidden="true"></i>&nbsp; Home</a>
@@ -167,20 +157,50 @@
 		</div>
 		<div class="col-md-9">
             <div class="profile-content" ng-view>
-			   Some user related content goes here...
+			   <div class="col-sm-8">
+<h1 ><i class="fa fa-handshake-o" aria-hidden="true"></i> Digital Collaboration Platform</h1>
+        <fieldset style="border: thin solid #ccc;   border-radius: 4px;  padding: 20px;  padding-left: 40px;  background: #fbfbfb;">
+        <p>
+          Collaboration is a all-in-one open-source digital collaboration platform that provides knowledge, document and content management, social engagement, and project collaboration tools integrated into your business’s applications.
+        </p>
+		<i class="fa fa-hashtag" aria-hidden="true"></i> Give exposure to your thoughts.<br><br>
+		<i class="fa fa-hashtag" aria-hidden="true"></i> Create your own Blogs & Forums.<br><br>
+		<i class="fa fa-cog" aria-hidden="true"></i> Make friends from all across the world.<br><br>
+		<i class="fa fa-comments" aria-hidden="true"></i> Team Messaging.<br><br>
+      </fieldset>
+</div>
             </div>
 		</div>
 		
 	</div>
 </div>
+<br>
+<br>
+<footer class="container" >
 <center>
 Made by <strong>Sakshi Rajput</strong>
 </center>
+</footer>
 <br>
 <br>
 
 </body>
-
+<script src="User/usercontroller.js"></script>
+<script src="User/userservice.js"></script>
+<script src="Blog/blogcontroller.js"></script>
+<script src="Blog/blogservice.js"></script>
+<script src="Blog/blogDetailsController.js"></script>
+<script src="Job/jobcontroller.js"></script>
+<script src="Job/jobservice.js"></script>
+<script src="Friend/friendservice.js"></script>
+<script src="Friend/friendcontroller.js"></script>
+<link rel="stylesheet" href="Css/like.css"></link>
+<script src="Chat/chatservice.js"></script>
+<script src="Chat/chatcontroller.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js" type="text/javascript"></script>
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.3/lodash.js" type="text/javascript"></script>
+  <link	href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700" rel="stylesheet" type="text/css" />
 </html>
 ​
 

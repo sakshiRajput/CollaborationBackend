@@ -18,6 +18,7 @@ app.controller('BlogDetailController',function($scope,BlogService,$location,$rou
 		BlogService.updateBlog($scope.blog).then(function(response){
 			alert('blog updated succesfully')
 			$location.path('/getBlogs')
+			$scope.blog.rejection_reason=''
 		},function(response){
 			console.log(response.status)
 			if(response.status==401)
@@ -53,6 +54,7 @@ app.controller('BlogDetailController',function($scope,BlogService,$location,$rou
 			alert('your comment is posted succesfully')
 			console.log(response.data)
 			console.log(response.status)
+		//	$scope.blogcomment.
 			
 		},function(response){
 			console.log(response.status)

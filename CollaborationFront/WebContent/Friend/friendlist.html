@@ -1,7 +1,33 @@
-<table class="table table-striped">
-<tbody>
-<tr ng-repeat="friends in listOfFriends">
-<td>{{friends}}</td>
-</tr>
-</tbody>
-</table>
+<div>
+ <div class="row">
+     <div class="col-md-6">
+     <fieldset>
+        <div class="box-header">
+                  <h3 class="box-title">Your Friends:</h3>
+        </div>
+	
+		<table class="table table-striped">
+		<tbody>
+		<tr ng-repeat="friends in listOfFriends">
+		<td>{{friends}}</td>
+		</tr>
+		</tbody>
+		</table>
+		</fieldset>
+    </div>
+    <div class="col-md-6">
+    <fieldset>
+        <div class="box-header">
+                  <h3 class="box-title">Make Some New Friends:</h3>
+        </div>
+   		<table class="table table-striped">
+		<tbody>
+		<tr ng-repeat="user in suggestedUsers">
+		<td>{{user.userName}}</td>
+		</tr>
+		</tbody>
+		</table>
+    </fieldset>
+   </div>
+ </div>
+</div>

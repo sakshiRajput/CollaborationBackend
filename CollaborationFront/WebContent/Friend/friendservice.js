@@ -22,9 +22,10 @@ app.factory('FriendService',function($http){
 	{
 		return $http.get(BASE_URL+"/listOfFriends")
 	}
-	friendService.updatePendingRequest=function(statusValue)
+	friendService.updatePendingRequest= function(request)
 	{
-		return $http.put(BASE_URL+"/updatePendingRequests/"+statusValue)
+		return $http.put(BASE_URL+"/updatePendingRequests",request)
 	}
+	
     return friendService;
 })

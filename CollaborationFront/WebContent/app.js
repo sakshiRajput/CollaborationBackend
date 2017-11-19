@@ -24,7 +24,7 @@ app.config(function($routeProvider) {
     
     })
     .when('/logout', {
-        templateUrl : 'Home/success.html'
+        templateUrl : 'User/login.html'
     
     })
     .when('/edituser', {

@@ -1,8 +1,26 @@
-Name of blog-{{blog.blogName}}<br>
-content of blog:-{{blog.blogContent}}<br>
-<p>details of blogs waiting for approval</p>
-<p>approve or reject :-</p>
-<form>
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css"/>
+<div class="col-sm-14">
+  <div class="well">
+      <div class="media">
+      	<a class="pull-left" href="#">
+    		<img class="media-object" src="http://placekitten.com/150/150">
+  		</a>
+  		<div class="media-body">
+    		<h4 class="media-heading">{{blog.blogName}}</h4>
+          <p class="text-right">By {{blog.postedBy.userName}}</p>
+          <p>{{blog.blogContent}}</p>
+          <ul class="list-inline list-unstyled">
+  			<li><span><i class="glyphicon glyphicon-calendar"></i> {{blog.createDate}} </span></li>
+            <li>|</li>
+            <span><i class="glyphicon glyphicon-comment"></i> 2 comments</span>
+            
+            
+           
+            
+			</ul>
+       </div>
+    </div>
+	<form>
 <div class="form-group">
 <input type="radio" ng-model="blog.status" value="A" ng-click="setValueRejectionTxt(false)" > Accept
 <input type="radio"  ng-model="blog.status" value="NA" ng-click="setValueRejectionTxt(true)"> reject<br>
@@ -10,5 +28,8 @@ content of blog:-{{blog.blogContent}}<br>
 <textarea rows="5" cols="20" ng-model="blog.rejection_reason"></textarea>
 </p>
 </div>
-<input type="submit" value="Update Blog" ng-click="updateBlog()">
+<input type="submit" class="btn btn-success" value="Update Blog" ng-click="updateBlog()">
 </form>
+  </div>
+
+</div>
